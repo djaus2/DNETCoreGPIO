@@ -18,6 +18,8 @@ Only 1 has been tested.
 Connect LED to GPIO17 and button to GPIO4 and Ground (to the one in between. ie Pins 11 7 and 9 resectively.
 
 ## Publishing
-Youneed to Publish the app from Visual Studio.
+You need to Publish the app from Visual Studio.
 - You can Publish as Framework Independent. See Raspian publish profile (It publishes to a share).
 - Or Build as Framework depedent. The IoT-Core publsih profile publises to a folder under \bin. You copy iot from there.
+
+NB: You could though build and deploy from VS Code.
