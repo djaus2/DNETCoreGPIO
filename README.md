@@ -11,7 +11,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 2. Temperature with BMP180 sensor
 3. Temperature and Hunidity with DHTxx sensor
 
-To run ```DNETCoreGPIO  n```  where n is 1,2 or 3 as above<br>
+To run ```./DNETCoreGPIO  n```  where n is 1,2 or 3 as above<br>
 Only 1 has been tested.
 
 ## Running Led and Button
