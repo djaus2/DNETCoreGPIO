@@ -8,6 +8,7 @@ using System.Device.I2c;
 using Iot.Device.Bmp180;
 using Iot.Device.DHTxx;
 using System.Threading;
+using System.Device.Pwm.Drivers;
 
 namespace DotNetCoreCoreGPIO
 {
@@ -35,8 +36,16 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Doing Get-Temp with DHTxx");
                             GetTempDHTxx();
                             break;
+                        case 4:
+                            Console.WriteLine("Doing Get-Temp with DHTxx-i-Wire");
+                            GetTempDHTxx1Wire();
+                            break;
+                        case 5:
+                            Console.WriteLine("Doing PWM");
+                            SoftwarePWM();
+                            break;
                         default:
-                            Console.WriteLine("Doing Blink-Led");
+                            Console.WriteLine("Doing Led PWM");
                             Blinkled();
                             break;
                     }
@@ -149,6 +158,46 @@ namespace DotNetCoreCoreGPIO
                     Thread.Sleep(2000);
                 }
             }
+        }
+
+        static void GetTempDHTxx1Wire()
+        {
+            //1-Wire:
+            int  pin = 26;
+            Console.WriteLine("Using DH22-1-Wire1");
+            using (Dht22 dht = new Dht22(pin))
+            {
+                while (true)
+                {
+                    Console.WriteLine(dht.IsLastReadSuccessful);
+                    Console.WriteLine(dht.Temperature.Kelvin);
+                    Console.WriteLine(dht.Temperature.Fahrenheit);
+                    Console.WriteLine(dht.Temperature.Celsius);
+                    Console.WriteLine(dht.Humidity.ToString());
+
+                    Console.WriteLine(
+                        $"Temperature: {dht.Temperature.Celsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
+
+                    Thread.Sleep(2000);
+                }
+            }
+        }
+
+        static void SoftwarePWM()
+        {
+            Console.WriteLine("Connect LED to GND. Connect hi end through resistor to GPIO 17 Pin 11.");
+            //var softwarePwmChannelWithPrecisionTimer = new SoftwarePwmChannel(17, frequency: 50, dutyCyclePercentage = 0.5, usePrecisionTimer: true);
+            using (var pwmChannel = new SoftwarePwmChannel(17, 200, 0))
+            {
+                Console.WriteLine("Starting");
+                pwmChannel.Start();
+                for (double fill = 0.0; fill <= 1.0; fill += 0.01)
+                {
+                    pwmChannel.DutyCycle = fill;
+                    Thread.Sleep(100);
+                }
+            }
+            Console.WriteLine("Done");
         }
 
 
