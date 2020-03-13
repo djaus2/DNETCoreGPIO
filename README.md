@@ -10,6 +10,8 @@ Whereas the samples therein (from which this is taken, and extended) use library
 1. Led and Button press  
 2. Temperature with BMP180 sensor
 3. Temperature and Hunidity with DHTxx sensor
+4. Temperature and Humidity with DHTxx sensor using 1-Wire
+5. LED driven by Software PWM.
 
 To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 or 3** as above<br>
 Only 1 has been tested.
