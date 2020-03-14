@@ -9,7 +9,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 **Code includes:**
 1. Led and Button press  <-- Works
 2. Temperature with BMP180 sensor
-3. Temperature and Hunidity with DHTxx sensor
+3. Temperature and Humidity with DHTxx sensor
 4. Temperature and Humidity with DHTxx sensor using 1-Wire <-- Works
 5. LED driven by Software PWM.  <-- Works
 6. H-Bridge Motor using L293D
