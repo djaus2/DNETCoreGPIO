@@ -169,20 +169,36 @@ namespace DotNetCoreCoreGPIO
             //1-Wire:
             int  pin = 26;
             Console.WriteLine("Using DH22-1-Wire1");
+            bool lastResult = true;
             using (Dht22 dht = new Dht22(pin))
             {
                 while (true)
                 {
-                    Console.WriteLine(dht.IsLastReadSuccessful);
-                    Console.WriteLine(dht.Temperature.Kelvin);
-                    Console.WriteLine(dht.Temperature.Fahrenheit);
-                    Console.WriteLine(dht.Temperature.Celsius);
-                    Console.WriteLine(dht.Humidity.ToString());
-
-                    Console.WriteLine(
-                        $"Temperature: {dht.Temperature.Celsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
-
-                    Thread.Sleep(2000);
+                    var temp = dht.Temperature.Celsius;
+                    bool result1 = dht.IsLastReadSuccessful;
+                    var humid = dht.Humidity;
+                    bool result2 = dht.IsLastReadSuccessful;
+                    if (!result1 && !result2)
+                    {
+                        Console.Write(".");
+                        lastResult = false;
+                    }
+                    else {
+                        if (!lastResult)
+                            Console.WriteLine("");
+                        lastResult = true;
+                        if (!(temp is double.NaN))
+                            Console.Write($"Temperature: {temp.ToString("0.0")} °C ");
+                        if (!(humid is double.NaN))
+                            Console.Write($"Humidity: { dht.Humidity.ToString("0.0")} % ");
+                        Console.WriteLine("");
+                    }
+                    //if (dht.IsLastReadSuccessful)
+                    //{
+                    //    Console.WriteLine(
+                    //        $"Temperature: {dht.Temperature.Celsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
+                    //}
+                    Thread.Sleep(2500);
                 }
             }
         }

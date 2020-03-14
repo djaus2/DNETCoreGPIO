@@ -7,11 +7,11 @@ _**This is based upon the GitHUbRepository: [dotnet/iot](https://github.com/dotn
 Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.**_
 
 **Code includes:**
-1. Led and Button press  
+1. Led and Button press  <-- Works
 2. Temperature with BMP180 sensor
 3. Temperature and Hunidity with DHTxx sensor
-4. Temperature and Humidity with DHTxx sensor using 1-Wire
-5. LED driven by Software PWM.
+4. Temperature and Humidity with DHTxx sensor using 1-Wire <-- Works
+5. LED driven by Software PWM.  <-- Works
 6. H-Bridge Motor using L293D
 
 To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above<br>
