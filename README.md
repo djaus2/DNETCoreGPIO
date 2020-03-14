@@ -12,8 +12,9 @@ Whereas the samples therein (from which this is taken, and extended) use library
 3. Temperature and Hunidity with DHTxx sensor
 4. Temperature and Humidity with DHTxx sensor using 1-Wire
 5. LED driven by Software PWM.
+6. H-Bridge Motor using L293D
 
-To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 or 3** as above<br>
+To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above<br>
 Only 1 has been tested.
 
 ## Running Led and Button

@@ -25,12 +25,12 @@ namespace DotNetCoreCoreGPIO
                     switch (index)
                     {
                         case 1:
-                            Console.WriteLine("Doing Blink-Led");
+                            Console.WriteLine("Doing Blink-LED");
                             Blinkled();
                             break;
                         case 2:
-                            Console.WriteLine("Doing Get-Tep with BMP180");
-                            GetTempBMP180();
+                            Console.WriteLine("Doing Get-Tep with BMP280");
+                            GetTempBMP280();
                             break;
                         case 3:
                             Console.WriteLine("Doing Get-Temp with DHTxx");
@@ -41,11 +41,15 @@ namespace DotNetCoreCoreGPIO
                             GetTempDHTxx1Wire();
                             break;
                         case 5:
-                            Console.WriteLine("Doing PWM");
+                            Console.WriteLine("Doing LED PWM");
                             SoftwarePWM();
                             break;
+                        case 6:
+                            Console.WriteLine("Doing Motor");
+                            Motor();
+                            break;
                         default:
-                            Console.WriteLine("Doing Led PWM");
+                            Console.WriteLine("Doing Blink-LED");
                             Blinkled();
                             break;
                     }
@@ -53,7 +57,7 @@ namespace DotNetCoreCoreGPIO
             }
             else
             {
-                Console.WriteLine("Doing Blink-Led");
+                Console.WriteLine("Doing Blink-LED");
                 Blinkled();
             }
 
@@ -132,7 +136,7 @@ namespace DotNetCoreCoreGPIO
             }
         }
 
-        static void GetTempBMP180()
+        static void GetTempBMP280()
         {
             CpuTemperature temp = new CpuTemperature();
             while (true)
@@ -229,8 +233,18 @@ namespace DotNetCoreCoreGPIO
             controller.Write(pinEn, PinValue.Low);
             controller.Write(pinFwd, PinValue.Low);
             controller.Write(pinRev, PinValue.Low);
+            
+            Console.WriteLine("Motor Commands:");
+                Console.WriteLine("===============");
+            Console.WriteLine("E: Enable");
+            Console.WriteLine("D: Disable");
+            Console.WriteLine("F: Forwards");
+            Console.WriteLine("R: Reverse");
+            Console.WriteLine("B: Break");
+            Console.WriteLine("Fwd, Rev and Brake don't apply  until enabled.");
+            Console.WriteLine("");
 
-            while (true)
+                while (true)
             {
                 var chrk = Console.ReadKey();
                 bool fwdState = (bool)controller.Read(pinFwd);
