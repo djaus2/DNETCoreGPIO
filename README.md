@@ -17,12 +17,17 @@ Whereas the samples therein (from which this is taken, and extended) use library
 To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above<br>
 Only 1 has been tested.
 
+# Run
 ## Running Led and Button
 Connect LED to GPIO17 and button to GPIO4 and Ground (to the one in between. ie Pins 11 7 and 9 resectively.
+## SW driven LED
+As above
+## DHT22
+See circuit diram under Circuits  . Active pin is is GPIO26
 
 ## Publishing
 You need to Publish the app from Visual Studio.
-- You can Publish as Framework Independent. See Raspian publish profile (It publishes to a share).
+- You can Publish as Framework Independent. See Raspian publish profile (It publishes to a share).Correction .. currently publishes to desktop folder
 - Or Build as Framework depedent. The IoT-Core publsih profile publises to a folder under \bin. You copy iot from there.
 
 NB: You could though build and deploy from VS Code.
