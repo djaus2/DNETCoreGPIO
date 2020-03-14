@@ -166,6 +166,7 @@ namespace DotNetCoreCoreGPIO
 
         static void GetTempDHTxx1Wire()
         {
+            int delayMs = 2000;
             //1-Wire:
             int  pin = 26;
             Console.WriteLine("Using DH22-1-Wire1");
@@ -178,27 +179,49 @@ namespace DotNetCoreCoreGPIO
                     bool result1 = dht.IsLastReadSuccessful;
                     var humid = dht.Humidity;
                     bool result2 = dht.IsLastReadSuccessful;
-                    if (!result1 && !result2)
+                    if (!result1 || !result2)
                     {
                         Console.Write(".");
                         lastResult = false;
                     }
-                    else {
-                        if (!lastResult)
-                            Console.WriteLine("");
-                        lastResult = true;
-                        if (!(temp is double.NaN))
-                            Console.Write($"Temperature: {temp.ToString("0.0")} °C ");
-                        if (!(humid is double.NaN))
-                            Console.Write($"Humidity: { dht.Humidity.ToString("0.0")} % ");
-                        Console.WriteLine("");
+                    else
+                    {
+                        //Sanity Check
+                        bool resultIsValid = true;
+                        if (temp is double.NaN)
+                            resultIsValid = false;
+                        else if (humid is double.NaN)
+                            resultIsValid = false;
+                        if (!resultIsValid)
+                        {
+                            Console.Write("#");
+                            lastResult = false;
+                        }
+                        else
+                        {
+                            bool resultIsSane = true;
+                            if ((temp > 100) || (temp < -20))
+                                resultIsSane = false;
+                            else if ((humid > 100) || (humid > 100))
+                                resultIsSane = false;
+                            if (!resultIsSane)
+                            {
+                                Console.Write("x");
+                                lastResult = false;
+                            }
+                            else
+                            {
+
+                                if (!lastResult)
+                                    Console.WriteLine("");
+                                lastResult = true;
+                                Console.Write($"Temperature: {temp.ToString("0.0")} °C ");
+                                Console.Write($"Humidity: { dht.Humidity.ToString("0.0")} % ");
+                                Console.WriteLine("");
+                            }
+                        }
                     }
-                    //if (dht.IsLastReadSuccessful)
-                    //{
-                    //    Console.WriteLine(
-                    //        $"Temperature: {dht.Temperature.Celsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
-                    //}
-                    Thread.Sleep(2500);
+                    Thread.Sleep(delayMs);
                 }
             }
         }
@@ -229,6 +252,7 @@ namespace DotNetCoreCoreGPIO
     /// </summary>
     static void Motor()
     {
+
         var pinFwd = 17; // <- Pin 11            If hi and pinBack is lo motor goes fwd
         var pinRev = 4;  //  <- Actual Pin 7      if hi and pinFwd is lo motor goes back (reverse)
         var pinEn = 27;  // <- Pin 13            Overall enable/disable  hi/lo
@@ -260,13 +284,13 @@ namespace DotNetCoreCoreGPIO
             Console.WriteLine("Fwd, Rev and Brake don't apply  until enabled.");
             Console.WriteLine("");
 
-                while (true)
+            while (true)
             {
                 var chrk = Console.ReadKey();
                 bool fwdState = (bool)controller.Read(pinFwd);
                 bool revState = (bool)controller.Read(pinRev);
                 char ch = chrk.KeyChar;
-                switch (ch)
+                switch (char.ToUpper(ch))
                 {
                     case 'F': //Forward
                               //Fwd: Take action so as to eliminate undesirable intermediate state/s
