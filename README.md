@@ -14,8 +14,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 5. LED driven by Software PWM.  <-- Works
 6. H-Bridge Motor using L293D
 
-To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above<br>
-Only 1 has been tested.
+To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.
 
 # Run
 ## Running Led and Button
