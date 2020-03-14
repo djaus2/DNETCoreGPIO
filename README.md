@@ -23,7 +23,7 @@ Connect LED to GPIO17 and button to GPIO4 and Ground (to the one in between. ie 
 ## SW driven LED
 As above
 ## DHT22
-See circuit diagram under Circuits  . Active pin is is GPIO26
+See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots.
 
 ## Publishing
 You need to Publish the app from Visual Studio.
