@@ -22,7 +22,7 @@ Connect LED to GPIO17 and button to GPIO4 and Ground (to the one in between. ie 
 ## SW driven LED
 As above
 ## DHT22
-See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots.
+See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots. Doesn't work on IOT-Core.
 
 ## Publishing
 You need to Publish the app from Visual Studio for linux-arm or win-arm. You can publish to a share of the Pi, or build to a folder on the desktop and then copy or send it across.
