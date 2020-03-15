@@ -1,7 +1,8 @@
 ﻿using System;
+// To get the dotnet/io packages:
 // install-Package System.Device.Gpio -Version 1.1.0-prerelease.20153
-using System.Device.Gpio;
 // Install-Package Iot.Device.Bindings -Version 1.1.0-prerelease.20153.1
+using System.Device.Gpio;
 using Iot.Device;
 using Iot.Device.CpuTemperature;
 using System.Device.I2c;
@@ -16,7 +17,13 @@ namespace DotNetCoreCoreGPIO
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting DNETCoreGPIO App");
+            Console.WriteLine("");
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("DNETCoreGPIO"));
+            Console.WriteLine("Starting DJz DNETCoreGPIO App...A DotNet/IO Sampler!");
+            Console.WriteLine("Based upon the https://github.com/dotnet/iot repository.");
+            Console.WriteLine("Uses 2 Nuget packages from there: Iot.Device.Bindings and System.Device.Gpio ");
+            Console.WriteLine("See in app how to include them in your .NET Core projects.");
+            Console.WriteLine();
             if (args.Length > 0)
             {
                 int index;
@@ -29,7 +36,7 @@ namespace DotNetCoreCoreGPIO
                             Blinkled();
                             break;
                         case 2:
-                            Console.WriteLine("Doing Get-Tep with BMP280");
+                            Console.WriteLine("Doing Get-Temp with BMP280");
                             GetTempBMP280();
                             break;
                         case 3:
@@ -37,7 +44,7 @@ namespace DotNetCoreCoreGPIO
                             GetTempDHTxx();
                             break;
                         case 4:
-                            Console.WriteLine("Doing Get-Temp with DHTxx-i-Wire");
+                            Console.WriteLine("Doing Get-Temp with DHT22-i-Wire");
                             GetTempDHTxx1Wire();
                             break;
                         case 5:
@@ -49,20 +56,32 @@ namespace DotNetCoreCoreGPIO
                             Motor();
                             break;
                         default:
-                            Console.WriteLine("Doing Blink-LED");
-                            Blinkled();
+                            Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
+                            Console.WriteLine("========================================");
+                            Console.WriteLine("1. Doing Blink-LED                       ... Works on Raspian AND IoT-Core");
+                            Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
+                            Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
+                            Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
+                            Console.WriteLine("5. Doing Motor H-Bridge style with L293D ... Testing now");
                             break;
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Doing Blink-LED");
-                Blinkled();
+                Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
+                Console.WriteLine("========================================");
+                Console.WriteLine("1. Doing Blink-LED                       ... Works on Raspian AND IoT-Core");
+                Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
+                Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
+                Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
+                Console.WriteLine("5. Doing Motor H-Bridge style with L293D ... Testing now");
             }
 
 
             Console.WriteLine("Done!");
+            Console.WriteLine("Press [Return] to exit");
+            Console.ReadLine();
         }
 
         /// <summary>
@@ -76,14 +95,14 @@ namespace DotNetCoreCoreGPIO
             var lightTimeInMilliseconds = 1000;
             var dimTimeInMilliseconds = 200;
 
-            Console.WriteLine($"Let's blink an LED!");
+            Console.WriteLine($"Let's blink an LED! Some button presses as well.");
             using (GpioController controller = new GpioController())
             {
                
                 controller.OpenPin(pinOut, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use: {pinOut}");
+                Console.WriteLine($"GPIO pin enabled for Output (The LED): {pinOut}");
                 controller.OpenPin(pinIn, PinMode.Input);
-                Console.WriteLine($"GPIO pin enabled for use: {pinIn}");
+                Console.WriteLine($"GPIO pin enabled for Input (The button): {pinIn}");
 
                 PinValue state =  controller.Read(pinIn);
                 PinValue start = state;
