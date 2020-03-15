@@ -62,7 +62,8 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
                             Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
-                            Console.WriteLine("5. Doing Motor H-Bridge style with L293D ... Testing now");
+                            Console.WriteLine("5. Doing LED PWM                         ... Works on Raspian AND IoT-Core");
+                            Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Testing now");
                             break;
                     }
                 }
@@ -75,7 +76,8 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
                 Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
-                Console.WriteLine("5. Doing Motor H-Bridge style with L293D ... Testing now");
+                Console.WriteLine("5. Doing LED PWM                         ... Works on Raspian AND IoT-Core");
+                Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Testing now");
             }
 
 
@@ -269,133 +271,137 @@ namespace DotNetCoreCoreGPIO
             Console.WriteLine("Done");
         }
         
-    /// <summary>
-    /// Drive a DC Motor forwards and back.
-    /// Effectively a H-Bridge (but no one of pinFwd and pinRev active and other disabled combination)
-    /// Using L293D: See http://www.robotplatform.com/howto/L293/motor_driver_1.html
-    /// More: https://www.alldatasheet.com/datasheet-pdf/pdf/22432/STMICROELECTRONICS/L293D.html
-    /// 2Do: Add PWM
-    /// </summary>
-    static void Motor()
-    {
-
-        var pinFwd = 17; // <- Pin 11            If hi and pinBack is lo motor goes fwd
-        var pinRev = 4;  //  <- Actual Pin 7      if hi and pinFwd is lo motor goes back (reverse)
-        var pinEn = 27;  // <- Pin 13            Overall enable/disable  hi/lo
-
-        //Nb: if pinFwd=pinRev hi or lo then its brake
-
-        Console.WriteLine($"Let's blink an LED!");
-        using (GpioController controller = new GpioController())
+        /// <summary>
+        /// Drive a DC Motor forwards and back.
+        /// Effectively a H-Bridge (but no one of pinFwd and pinRev active and other disabled combination)
+        /// Using L293D: See http://www.robotplatform.com/howto/L293/motor_driver_1.html
+        /// More: https://www.alldatasheet.com/datasheet-pdf/pdf/22432/STMICROELECTRONICS/L293D.html
+        /// 2Do: Add PWM
+        /// </summary>
+        static void Motor()
         {
 
-            controller.OpenPin(pinFwd, PinMode.Output);
-            Console.WriteLine($"GPIO pin enabled for use: {pinFwd}");
-            controller.OpenPin(pinRev, PinMode.Output);
-            Console.WriteLine($"GPIO pin enabled for use: {pinRev}");
-            controller.OpenPin(pinRev, PinMode.Output);
-            Console.WriteLine($"GPIO pin enabled for use: {pinEn}");
+            var pinFwd = 17; // <- Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = 4;  //  <- Actual Pin 7      if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = 27;  // <- Pin 13            Overall enable/disable  hi/lo
 
-            controller.Write(pinEn, PinValue.Low);
-            controller.Write(pinFwd, PinValue.Low);
-            controller.Write(pinRev, PinValue.Low);
-            
-            Console.WriteLine("Motor Commands:");
-                Console.WriteLine("===============");
-            Console.WriteLine("E: Enable");
-            Console.WriteLine("D: Disable");
-            Console.WriteLine("F: Forwards");
-            Console.WriteLine("R: Reverse");
-            Console.WriteLine("B: Break");
-            Console.WriteLine("Fwd, Rev and Brake don't apply  until enabled.");
-            Console.WriteLine("");
+            //Nb: if pinFwd=pinRev hi or lo then its brake
 
-            while (true)
+            Console.WriteLine($"Let control a DC motor!");
+            using (GpioController controller = new GpioController())
             {
-                var chrk = Console.ReadKey();
-                bool fwdState = (bool)controller.Read(pinFwd);
-                bool revState = (bool)controller.Read(pinRev);
-                char ch = chrk.KeyChar;
-                switch (char.ToUpper(ch))
-                {
-                    case 'F': //Forward
-                              //Fwd: Take action so as to eliminate undesirable intermediate state/s
-                        if (fwdState && revState)
-                        {
-                            //Is braked (hi)
-                            controller.Write(pinRev, PinValue.Low);
-                        }
-                        else if (!fwdState && revState)
-                        {
-                            //Is Rev. Brake first
-                            controller.Write(pinRev, PinValue.Low);
-                            controller.Write(pinFwd, PinValue.High);
-                        }
-                        else if (!fwdState && !revState)
-                        {
-                            //Is braked (lo)
-                            controller.Write(pinFwd, PinValue.High);
-                        }
-                        else if (fwdState && !revState)
-                        {
-                            //Is fwd
-                        }
 
-                        break;
-                    case 'R': // Reverse
-                        if (fwdState && revState)
-                        {
-                            //Is braked (hi)
-                            controller.Write(pinFwd, PinValue.Low);
-                        }
-                        else if (!fwdState && revState)
-                        {
-                            //Is reverse
-                        }
-                        else if (!fwdState && !revState)
-                        {
-                            //Is braked (lo)
-                            controller.Write(pinRev, PinValue.High);
-                        }
-                        else if (fwdState && !revState)
-                        {
-                            //Is fwd: Brake first
-                            controller.Write(pinFwd, PinValue.Low);
-                            controller.Write(pinRev, PinValue.High);
-                        }
-                        break;
-                    case 'B': //Brake
-                        if (fwdState && revState)
-                        {
-                            //Is braked (hi)
-                        }
-                        else if (!fwdState && revState)
-                        {
-                            //Is Rev: Brake lo
-                            controller.Write(pinRev, PinValue.Low);
-                        }
-                        else if (!fwdState && !revState)
-                        {
-                            //Is braked (lo)
-                        }
-                        else if (fwdState && !revState)
-                        {
-                            //Is fwd: Brake lo
-                            controller.Write(pinFwd, PinValue.Low);
-                        }
-                        break;
-                    case 'E': //Enable
-                        controller.Write(pinEn, PinValue.High);
-                        break;
-                    case 'D': //Disable
-                        controller.Write(pinEn, PinValue.Low);
-                        break;
+                controller.OpenPin(pinFwd, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinFwd}");
+                controller.OpenPin(pinRev, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output: Reverse): {pinRev}");
+                controller.OpenPin(pinRev, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output: Forward): {pinEn}");
+
+                controller.Write(pinEn, PinValue.Low);
+                controller.Write(pinFwd, PinValue.Low);
+                controller.Write(pinRev, PinValue.Low);
+            
+                Console.WriteLine("Motor Commands:");
+                Console.WriteLine("===============");
+                Console.WriteLine("E: Enable");
+                Console.WriteLine("D: Disable");
+                Console.WriteLine("F: Forwards");
+                Console.WriteLine("R: Reverse");
+                Console.WriteLine("B: Break");
+                Console.WriteLine("Fwd, Rev and Brake don't apply  until enabled.");
+                Console.WriteLine("Q: Quir");
+
+                bool exitNow = false;
+                while (!exitNow)
+                {
+                    var chrk = Console.ReadKey();
+                    bool fwdState = (bool)controller.Read(pinFwd);
+                    bool revState = (bool)controller.Read(pinRev);
+                    char ch = chrk.KeyChar;
+                    switch (char.ToUpper(ch))
+                    {
+                        case 'F': //Forward
+                                  //Fwd: Take action so as to eliminate undesirable intermediate state/s
+                            if (fwdState && revState)
+                            {
+                                //Is braked (hi)
+                                controller.Write(pinRev, PinValue.Low);
+                            }
+                            else if (!fwdState && revState)
+                            {
+                                //Is Rev. Brake first
+                                controller.Write(pinRev, PinValue.Low);
+                                controller.Write(pinFwd, PinValue.High);
+                            }
+                            else if (!fwdState && !revState)
+                            {
+                                //Is braked (lo)
+                                controller.Write(pinFwd, PinValue.High);
+                            }
+                            else if (fwdState && !revState)
+                            {
+                                //Is fwd
+                            }
+
+                            break;
+                        case 'R': // Reverse
+                            if (fwdState && revState)
+                            {
+                                //Is braked (hi)
+                                controller.Write(pinFwd, PinValue.Low);
+                            }
+                            else if (!fwdState && revState)
+                            {
+                                //Is reverse
+                            }
+                            else if (!fwdState && !revState)
+                            {
+                                //Is braked (lo)
+                                controller.Write(pinRev, PinValue.High);
+                            }
+                            else if (fwdState && !revState)
+                            {
+                                //Is fwd: Brake first
+                                controller.Write(pinFwd, PinValue.Low);
+                                controller.Write(pinRev, PinValue.High);
+                            }
+                            break;
+                        case 'B': //Brake
+                            if (fwdState && revState)
+                            {
+                                //Is braked (hi)
+                            }
+                            else if (!fwdState && revState)
+                            {
+                                //Is Rev: Brake lo
+                                controller.Write(pinRev, PinValue.Low);
+                            }
+                            else if (!fwdState && !revState)
+                            {
+                                //Is braked (lo)
+                            }
+                            else if (fwdState && !revState)
+                            {
+                                //Is fwd: Brake lo
+                                controller.Write(pinFwd, PinValue.Low);
+                            }
+                            break;
+                        case 'E': //Enable
+                            controller.Write(pinEn, PinValue.High);
+                            break;
+                        case 'D': //Disable
+                            controller.Write(pinEn, PinValue.Low);
+                            break;
+                        case 'Q':
+                            exitNow = true;
+                                break;
+                    }
+
                 }
 
             }
-
         }
-    }
 
 
     }
