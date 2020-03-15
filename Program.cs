@@ -63,7 +63,7 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
                             Console.WriteLine("5. Doing LED PWM                         ... Works on Raspian AND IoT-Core");
-                            Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Testing now");
+                            Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Works on Raspian ... should work on IoT-Core.");
                             break;
                     }
                 }
@@ -76,8 +76,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
                 Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
-                Console.WriteLine("5. Doing LED PWM                         ... Works on Raspian AND IoT-Core");
-                Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Testing now");
+                Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Works on Raspian ... should work on IoT-Core.");
             }
 
 
@@ -283,8 +282,8 @@ namespace DotNetCoreCoreGPIO
             //GPIO Pin numbers:
             //=================
             var pinFwd = 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = 22; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = 27;  // <- Brd Pin 15            Overall enable/disable  hi/lo
+            var pinRev = 27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
 
@@ -295,9 +294,9 @@ namespace DotNetCoreCoreGPIO
                 controller.OpenPin(pinEn, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinEn}");
                 controller.OpenPin(pinRev, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output: Reverse): {pinRev}");
+                Console.WriteLine($"GPIO pin enabled for use (Output:Reverse): {pinRev}");
                 controller.OpenPin(pinFwd, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output: Forward): {pinFwd}");
+                Console.WriteLine($"GPIO pin enabled for use (Output:Forward): {pinFwd}");
 
                 controller.Write(pinEn, PinValue.Low);
                 controller.Write(pinFwd, PinValue.Low);
@@ -323,6 +322,25 @@ namespace DotNetCoreCoreGPIO
                     char ch = chrk.KeyChar;
                     switch (char.ToUpper(ch))
                     {
+                        case '0':
+                            controller.Write(pinFwd, PinValue.Low);
+                            break;
+                        case '1':
+                            controller.Write(pinFwd, PinValue.High);
+                            break;
+                        case '2':
+                            controller.Write(pinRev, PinValue.Low);
+                            break;
+                        case '3':
+                            controller.Write(pinRev, PinValue.High);
+                            break;
+                        case '4':
+                            controller.Write(pinEn, PinValue.Low);
+                            break;
+                        case '5':
+                            controller.Write(pinEn, PinValue.High);
+                            break;
+
                         case 'F': //Forward
                                   //Fwd: Take action so as to eliminate undesirable intermediate state/s
                             if (fwdState && revState)
