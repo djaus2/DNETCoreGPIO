@@ -280,9 +280,10 @@ namespace DotNetCoreCoreGPIO
         /// </summary>
         static void Motor()
         {
-
+            //GPIO Pin numbers:
+            //=================
             var pinFwd = 17; // <- Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = 4;  //  <- Actual Pin 7      if hi and pinFwd is lo motor goes back (reverse)
+            var pinRev = 4;  // <- Pin 7             if hi and pinFwd is lo motor goes back (reverse)
             var pinEn = 27;  // <- Pin 13            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
@@ -295,7 +296,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinFwd}");
                 controller.OpenPin(pinRev, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output: Reverse): {pinRev}");
-                controller.OpenPin(pinRev, PinMode.Output);
+                controller.OpenPin(pinFwd, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output: Forward): {pinEn}");
 
                 controller.Write(pinEn, PinValue.Low);
