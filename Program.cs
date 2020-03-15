@@ -282,9 +282,9 @@ namespace DotNetCoreCoreGPIO
         {
             //GPIO Pin numbers:
             //=================
-            var pinFwd = 17; // <- Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = 4;  // <- Pin 7             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = 27;  // <- Pin 13            Overall enable/disable  hi/lo
+            var pinFwd = 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = 22; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = 27;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
 
@@ -292,31 +292,32 @@ namespace DotNetCoreCoreGPIO
             using (GpioController controller = new GpioController())
             {
 
-                controller.OpenPin(pinFwd, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinFwd}");
+                controller.OpenPin(pinEn, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinEn}");
                 controller.OpenPin(pinRev, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output: Reverse): {pinRev}");
                 controller.OpenPin(pinFwd, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output: Forward): {pinEn}");
+                Console.WriteLine($"GPIO pin enabled for use (Output: Forward): {pinFwd}");
 
                 controller.Write(pinEn, PinValue.Low);
                 controller.Write(pinFwd, PinValue.Low);
                 controller.Write(pinRev, PinValue.Low);
-            
+
+                Console.WriteLine();
                 Console.WriteLine("Motor Commands:");
                 Console.WriteLine("===============");
                 Console.WriteLine("E: Enable");
                 Console.WriteLine("D: Disable");
                 Console.WriteLine("F: Forwards");
                 Console.WriteLine("R: Reverse");
-                Console.WriteLine("B: Break");
+                Console.WriteLine("B: Brake");
                 Console.WriteLine("Fwd, Rev and Brake don't apply  until enabled.");
-                Console.WriteLine("Q: Quir");
+                Console.WriteLine("Q: Quit");
 
                 bool exitNow = false;
                 while (!exitNow)
                 {
-                    var chrk = Console.ReadKey();
+                    var chrk = Console.ReadKey(false);
                     bool fwdState = (bool)controller.Read(pinFwd);
                     bool revState = (bool)controller.Read(pinRev);
                     char ch = chrk.KeyChar;
