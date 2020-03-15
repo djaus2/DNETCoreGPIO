@@ -8,11 +8,11 @@ Whereas the samples therein (from which this is taken, and extended) use library
 
 **Code includes:**
 1. Led and Button press  <-- Works
-2. Temperature with BMP180 sensor
-3. Temperature and Humidity with DHTxx sensor
+2. Temperature with BME280 sensor  ..2Do
+3. Temperature and Humidity with DHTxx sensor  ..2Do
 4. Temperature and Humidity with DHT22 sensor using 1-Wire <-- Works on Raspian not IOT-Core
 5. LED driven by Software PWM.  <-- Works
-6. H-Bridge Motor using L293D
+6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed) should work on IoT-Core
 
 To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.
 
@@ -23,6 +23,9 @@ Connect LED to GPIO17 and button to GPIO4 and Ground (to the one in between. ie 
 As above
 ## DHT22
 See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots. Doesn't work on IOT-Core.
+## Motor
+See circuit diagram in Circuits folder, left part. Pins: Enable (E1) GPIO22 Reverse GPIO 22 (I1) Forward GPIO 17 (I2). (L293D pins in brackets)<br>
+I also attached LEDs to each output.
 
 ## Publishing
 You need to Publish the app from Visual Studio for linux-arm or win-arm. You can publish to a share of the Pi, or build to a folder on the desktop and then copy or send it across.
