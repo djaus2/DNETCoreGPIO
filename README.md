@@ -18,13 +18,21 @@ To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerS
 
 # Run
 ## Running Led and Button
-Connect LED to GPIO17 and button to GPIO4 and Ground (to the one in between. ie Pins 11 7 and 9 resectively.
+Pins:
+- LED Anode to GPIO17
+- Button1 to GPIO4
+- Ground (LED Cathode and Button2) (to the one in between. <br>ie Pins 11 7 and 9 resectively.
+- Reminder that the LED requires a current limiting resistor.
 ## SW driven LED
 As above
 ## DHT22
 See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots. Doesn't work on IOT-Core.
 ## Motor
-See circuit diagram in Circuits folder, left part. Pins: Enable (E1) GPIO22 Reverse GPIO 22 (I1) Forward GPIO 17 (I2). (L293D pins in brackets)<br>
+See circuit diagram in Circuits folder, left part. <br>Pins (L293D pins in brackets):
+- Enable  GPIO22 (E1)
+- Reverse GPIO 22 (I1) 
+- Forward GPIO 17 (I2)
+<p>
 I also attached LEDs to each output.
 
 ## Publishing
