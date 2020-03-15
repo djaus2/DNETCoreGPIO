@@ -173,55 +173,62 @@ namespace DotNetCoreCoreGPIO
             bool lastResult = true;
             using (Dht22 dht = new Dht22(pin))
             {
-                while (true)
+                if (dht == null)
                 {
-                    var temp = dht.Temperature.Celsius;
-                    bool result1 = dht.IsLastReadSuccessful;
-                    var humid = dht.Humidity;
-                    bool result2 = dht.IsLastReadSuccessful;
-                    if (!result1 || !result2)
+                    Console.WriteLine("Dht22 instantiation failed");
+                }
+                else
+                {
+                    while (true)
                     {
-                        Console.Write(".");
-                        lastResult = false;
-                    }
-                    else
-                    {
-                        //Sanity Check
-                        bool resultIsValid = true;
-                        if (temp is double.NaN)
-                            resultIsValid = false;
-                        else if (humid is double.NaN)
-                            resultIsValid = false;
-                        if (!resultIsValid)
+                        var temp = dht.Temperature.Celsius;
+                        bool result1 = dht.IsLastReadSuccessful;
+                        var humid = dht.Humidity;
+                        bool result2 = dht.IsLastReadSuccessful;
+                        if (!result1 || !result2)
                         {
-                            Console.Write("#");
+                            Console.Write(".");
                             lastResult = false;
                         }
                         else
                         {
-                            bool resultIsSane = true;
-                            if ((temp > 100) || (temp < -20))
-                                resultIsSane = false;
-                            else if ((humid > 100) || (humid > 100))
-                                resultIsSane = false;
-                            if (!resultIsSane)
+                            //Sanity Check
+                            bool resultIsValid = true;
+                            if (temp is double.NaN)
+                                resultIsValid = false;
+                            else if (humid is double.NaN)
+                                resultIsValid = false;
+                            if (!resultIsValid)
                             {
-                                Console.Write("x");
+                                Console.Write("#");
                                 lastResult = false;
                             }
                             else
                             {
+                                bool resultIsSane = true;
+                                if ((temp > 100) || (temp < -20))
+                                    resultIsSane = false;
+                                else if ((humid > 100) || (humid > 100))
+                                    resultIsSane = false;
+                                if (!resultIsSane)
+                                {
+                                    Console.Write("x");
+                                    lastResult = false;
+                                }
+                                else
+                                {
 
-                                if (!lastResult)
+                                    if (!lastResult)
+                                        Console.WriteLine("");
+                                    lastResult = true;
+                                    Console.Write($"Temperature: {temp.ToString("0.0")} °C ");
+                                    Console.Write($"Humidity: { humid.ToString("0.0")} % ");
                                     Console.WriteLine("");
-                                lastResult = true;
-                                Console.Write($"Temperature: {temp.ToString("0.0")} °C ");
-                                Console.Write($"Humidity: { dht.Humidity.ToString("0.0")} % ");
-                                Console.WriteLine("");
+                                }
                             }
                         }
+                        Thread.Sleep(delayMs);
                     }
-                    Thread.Sleep(delayMs);
                 }
             }
         }
