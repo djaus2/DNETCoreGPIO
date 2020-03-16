@@ -12,7 +12,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 3. Temperature and Humidity with DHTxx sensor  ..2Do
 4. Temperature and Humidity with DHT22 sensor using 1-Wire <-- Works on Raspian not IOT-Core
 5. LED driven by Software PWM.  <-- Works
-6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed) should work on IoT-Core
+6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed). Works on IoT-Core (see below though).
 
 To run ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.
 
@@ -33,7 +33,8 @@ See circuit diagram in Circuits folder, left part. <br>Pins (L293D pins in brack
 - Reverse GPIO 22 (I1) 
 - Forward GPIO 17 (I2)
 <p>
-I also attached LEDs to each output.
+<b>On IoT-Core DO NOT RUN IN POWERSHELL.  Can't get user input for Console app in Remote PowerShell.<br> Run an SSH session.</b><br>
+I also attached a LED to each output.
 
 ## Publishing
 You need to Publish the app from Visual Studio for linux-arm or win-arm. You can publish to a share of the Pi, or build to a folder on the desktop and then copy or send it across.
