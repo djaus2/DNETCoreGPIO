@@ -33,7 +33,7 @@ See circuit diagram in Circuits folder, left part. <br>Pins (L293D pins in brack
 - Reverse GPIO 22 (I1) 
 - Forward GPIO 17 (I2)
 <p>
-<b>On IoT-Core DO NOT RUN IN POWERSHELL.  Can't get user input for Console app in Remote PowerShell.<br> Run an SSH session.</b><br>
+<b>On IoT-Core DO NOT RUN IN POWERSHELL.  Can't get user input for Console app in Remote PowerShell.<br> Run an SSH session.</b>Or directlly on the device.<br>
 I also attached a LED to each output.
 
 ## Publishing
