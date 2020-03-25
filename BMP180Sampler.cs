@@ -35,7 +35,7 @@ namespace DotNetCoreCoreGPIO
                 var i2cDevice = I2cDevice.Create(i2cSettings);
                 var i2cBmp280 = new Bmp180(i2cDevice);
 
-                if (i2cBmp280 == null)
+                if (i2cBmp280 != null)
                 {
                     using (i2cBmp280)
                     {
