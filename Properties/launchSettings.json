@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DNETCoreGPIO": {
+      "commandName": "Project",
+      "commandLineArgs": "2"
+    }
+  }
+}

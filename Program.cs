@@ -36,8 +36,8 @@ namespace DotNetCoreCoreGPIO
                             Blinkled();
                             break;
                         case 2:
-                            Console.WriteLine("Doing Get-Temp with BMP280");
-                            GetTempBMP280();
+                            Console.WriteLine("Doing Get-Temp with BMP180");
+                            BMP180Sampler.Run();
                             break;
                         case 3:
                             Console.WriteLine("Doing Get-Temp with DHTxx");
@@ -59,7 +59,7 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                             Console.WriteLine("========================================");
                             Console.WriteLine("1. Doing Blink-LED                       ... Works on Raspian AND IoT-Core");
-                            Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
+                            Console.WriteLine("2. Doing Get-Temp with BMP180            ... Not tested yet.");
                             Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
                             Console.WriteLine("5. Doing LED PWM                         ... Works on Raspian AND IoT-Core");
@@ -73,7 +73,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Doing Blink-LED                       ... Works on Raspian AND IoT-Core");
-                Console.WriteLine("2. Doing Get-Temp with BMP280            ... Not tested yet.");
+                Console.WriteLine("2. Doing Get-Temp with BMP180            ... Not tested yet.");
                 Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
                 Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Works on Raspian ... should work on IoT-Core.");
