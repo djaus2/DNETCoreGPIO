@@ -162,7 +162,7 @@ namespace DotNetCoreCoreGPIO
             while (true)
             {
                     Console.WriteLine(
-                        $"Temperature: {temp.Temperature.Celsius.ToString("0.0")} °C");
+                        $"Temperature: {temp.Temperature.DegreesCelsius.ToString("0.0")} °C");
 
                 Thread.Sleep(2000);
             }
@@ -177,7 +177,7 @@ namespace DotNetCoreCoreGPIO
                 while (true)
                 {
                     Console.WriteLine(
-                        $"Temperature: {dht.Temperature.Celsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
+                        $"Temperature: {dht.Temperature.DegreesCelsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
 
                     Thread.Sleep(2000);
                 }
@@ -201,9 +201,9 @@ namespace DotNetCoreCoreGPIO
                 {
                     while (true)
                     {
-                        var temp = dht.Temperature.Celsius;
+                        var temp = dht.Temperature.DegreesCelsius;
                         bool result1 = dht.IsLastReadSuccessful;
-                        var humid = dht.Humidity;
+                        var humid = dht.Humidity.Percent;
                         bool result2 = dht.IsLastReadSuccessful;
                         if (!result1 || !result2)
                         {

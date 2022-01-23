@@ -9,7 +9,7 @@ using System;
 using System.Device.I2c;
 using System.Threading;
 using Iot.Device.Bmp180;
-using Iot.Units;
+//using Iot.Units;
 
 namespace DotNetCoreCoreGPIO
 {
@@ -43,11 +43,11 @@ namespace DotNetCoreCoreGPIO
                         i2cBmp280.SetSampling(Sampling.Standard);
 
                         // read values
-                        Temperature tempValue = i2cBmp280.ReadTemperature();
-                        Console.WriteLine($"Temperature {tempValue.Celsius} \u00B0C");
+                        UnitsNet.Temperature tempValue = i2cBmp280.ReadTemperature();
+                        Console.WriteLine($"Temperature {tempValue.DegreesCelsius} \u00B0C");
                         var preValue = i2cBmp280.ReadPressure();
-                        Console.WriteLine($"Pressure {preValue.Hectopascal} hPa");
-                        double altValue = i2cBmp280.ReadAltitude();
+                        Console.WriteLine($"Pressure {preValue.Hectopascals} hPa");
+                        double altValue = i2cBmp280.ReadAltitude().Meters;
                         Console.WriteLine($"Altitude {altValue:0.##} m");
                         Thread.Sleep(1000);
 
@@ -56,10 +56,10 @@ namespace DotNetCoreCoreGPIO
 
                         // read values
                         tempValue = i2cBmp280.ReadTemperature();
-                        Console.WriteLine($"Temperature {tempValue.Celsius} \u00B0C");
+                        Console.WriteLine($"Temperature {tempValue.DegreesCelsius} \u00B0C");
                         preValue = i2cBmp280.ReadPressure();
-                        Console.WriteLine($"Pressure {preValue.Hectopascal} hPa");
-                        altValue = i2cBmp280.ReadAltitude();
+                        Console.WriteLine($"Pressure {preValue.Hectopascals} hPa");
+                        altValue = i2cBmp280.ReadAltitude().Meters;
                         Console.WriteLine($"Altitude {altValue:0.##} m");
                     }
                 } else {
