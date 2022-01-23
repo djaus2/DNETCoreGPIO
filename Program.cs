@@ -176,8 +176,22 @@ namespace DotNetCoreCoreGPIO
             {
                 while (true)
                 {
-                    Console.WriteLine(
-                        $"Temperature: {dht.Temperature.DegreesCelsius.ToString("0.0")} °C, Humidity: {dht.Humidity.ToString("0.0")} %");
+                    UnitsNet.Temperature temp;
+                    UnitsNet.RelativeHumidity humid;
+                    if (dht.TryReadTemperature(out temp))
+                        if (dht.TryReadHumidity(out humid))
+                            {
+                            Console.WriteLine(
+                                $"Temperature: {temp.DegreesCelsius.ToString("0.0")} °C, Humidity: {humid.Percent.ToString("0.0")} %");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Humidity reading failed);");
+                        }
+                    else
+                    {
+                        Console.WriteLine("Temperature reading failed.");
+                    }
 
                     Thread.Sleep(2000);
                 }
@@ -201,10 +215,10 @@ namespace DotNetCoreCoreGPIO
                 {
                     while (true)
                     {
-                        var temp = dht.Temperature.DegreesCelsius;
-                        bool result1 = dht.IsLastReadSuccessful;
-                        var humid = dht.Humidity.Percent;
-                        bool result2 = dht.IsLastReadSuccessful;
+                        UnitsNet.Temperature temp;
+                        UnitsNet.RelativeHumidity humid;
+                        bool result1 = dht.TryReadTemperature(out temp);
+                        bool result2 = dht.TryReadHumidity(out humid);
                         if (!result1 || !result2)
                         {
                             Console.Write(".");
@@ -214,9 +228,9 @@ namespace DotNetCoreCoreGPIO
                         {
                             //Sanity Check
                             bool resultIsValid = true;
-                            if (temp is double.NaN)
+                            if (temp.DegreesCelsius is double.NaN)
                                 resultIsValid = false;
-                            else if (humid is double.NaN)
+                            else if (humid.Percent is double.NaN)
                                 resultIsValid = false;
                             if (!resultIsValid)
                             {
@@ -226,9 +240,9 @@ namespace DotNetCoreCoreGPIO
                             else
                             {
                                 bool resultIsSane = true;
-                                if ((temp > 100) || (temp < -20))
+                                if ((temp.DegreesCelsius > 100) || (temp.DegreesCelsius < -20))
                                     resultIsSane = false;
-                                else if ((humid > 100) || (humid > 100))
+                                else if ((humid.Percent > 100) || (humid.Percent <0))
                                     resultIsSane = false;
                                 if (!resultIsSane)
                                 {
@@ -241,8 +255,8 @@ namespace DotNetCoreCoreGPIO
                                     if (!lastResult)
                                         Console.WriteLine("");
                                     lastResult = true;
-                                    Console.Write($"Temperature: {temp.ToString("0.0")} °C ");
-                                    Console.Write($"Humidity: { humid.ToString("0.0")} % ");
+                                    Console.Write($"Temperature: {temp.DegreesCelsius.ToString("0.0")} °C ");
+                                    Console.Write($"Humidity: { humid.Percent.ToString("0.0")} % ");
                                     Console.WriteLine("");
                                 }
                             }
