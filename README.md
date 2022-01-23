@@ -1,5 +1,7 @@
 # DNETCoreGPIO
 
+Updated for **Net5.0** and for versions 1.5 (stable) releases of **Iot.Device.Bindings** and **System.Device.Gpio Nuget pacakages**.
+
 A .NET Core app to run on the RPi. Works with both Raspian and Win10 IoT-Core unchanged.
 Exemplifies System.Devices.GPIO and Iot.Device.Bindings Nuget packages. Provided as Visual Studio 2019 project.
 
