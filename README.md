@@ -23,9 +23,9 @@ Whereas the samples therein (from which this is taken, and extended) use library
 6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed). Works on IoT-Core (see below though).
 
 **To run**  
-- Assuming the .Net Framework is installed _(Net 6 for latest)_ on the RPi etc....
 - If publishing from desktop to RPI, from within teh deployed folder: ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.
-- If cloned repository to RPI, ```dot net build``` in the root of the repository copy then ```dotnet run n``` there where n is 1..6 as above.
+- Assuming the .Net Framework is installed _(Net 6 for latest)_ on the RPi etc:
+  - If cloned repository to RPI, ```dotnet build``` in the root of the repository copy then ```dotnet run n``` there where n is 1..6 as above.
 
 # Run
 ## Running Led and Button
