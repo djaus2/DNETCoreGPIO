@@ -25,7 +25,7 @@ namespace DotNetCoreCoreGPIO
             Console.WriteLine("See in app how to include them in your .NET Core projects.");
             Console.WriteLine("This version has option 7: Run app once for each state change. See MotorControl().");
             Console.WriteLine();
-            int state = 0;
+            int state = -1;
             if (args.Length > 0)
             {
                 int index;
@@ -94,8 +94,12 @@ namespace DotNetCoreCoreGPIO
 
 
             Console.WriteLine("Done!");
-            Console.WriteLine("Press [Return] to exit");
-            Console.ReadLine();
+            if (state < 0)
+            {
+                // Skip press for headless
+                Console.WriteLine("Press [Return] to exit");
+                Console.ReadLine();
+            }
         }
 
         /// <summary>
