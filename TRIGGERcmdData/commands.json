@@ -1,0 +1,53 @@
+[
+  {
+    "trigger": "DNETCoreGPIO Blink-LED and Button",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 1",
+    "ground": "foreground",
+    "voice": "led",
+    "allowParams": "false"
+  },
+  {
+    "trigger": "DNETCoreGPIO Get-Temp with BMP180",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 2",
+    "ground": "foreground",
+    "voice": "temp",
+    "allowParams": "false"
+  },
+  {
+    "trigger": "DNETCoreGPIO Get-Temp with DHTxx",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 3",
+    "ground": "foreground",
+    "voice": "dee",
+    "allowParams": "false"
+  },
+  {
+    "trigger": "DNETCoreGPIO Get-Temp with DHT22-i-Wire",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 4",
+    "ground": "foreground",
+    "voice": "wire",
+    "allowParams": "false"
+  },
+  {
+    "trigger": "DNETCoreGPIO LED PWM",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 5",
+    "ground": "foreground",
+    "voice": "pwm",
+    "allowParams": "false"
+  },
+  {
+    "trigger": "DNETCoreGPIO Motor Enable",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 14",
+    "offCommand": "bash /home/pi/DNETCoreGPIO.sh 15",
+    "ground": "foreground",
+    "voice": "motor",
+    "allowParams": "true"
+  },
+  {
+    "trigger": "DNETCoreGPIO Motor Direction",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 11",
+    "offCommand": "bash /home/pi/DNETCoreGPIO.sh 12",
+    "ground": "foreground",
+    "voice": "spin",
+    "allowParams": "true"
+  }
+]
