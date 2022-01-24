@@ -21,6 +21,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 4. Temperature and Humidity with DHT22 sensor using 1-Wire <-- Works on Raspian not IOT-Core
 5. LED driven by Software PWM.  <-- Works
 6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed). Works on IoT-Core (see below though).
+``` 10. to 15.  Doing Motor H-Bridge style with L293D. . See MotorControl(() ```
 
 **To run**  
 - If publishing from desktop to RPI, from within teh deployed folder: ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.

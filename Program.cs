@@ -23,12 +23,19 @@ namespace DotNetCoreCoreGPIO
             Console.WriteLine("Based upon the https://github.com/dotnet/iot repository.");
             Console.WriteLine("Uses 2 Nuget packages from there: Iot.Device.Bindings and System.Device.Gpio ");
             Console.WriteLine("See in app how to include them in your .NET Core projects.");
+            Console.WriteLine("This version has option 7: Run app once for each state change. See MotorControl().");
             Console.WriteLine();
+            int state = 0;
             if (args.Length > 0)
             {
                 int index;
                 if (int.TryParse(args[0], out index))
                 {
+                    if (index >9)
+                    {
+                        state = index - 10;
+                        index = 7;
+                    }
                     switch (index)
                     {
                         case 1:
@@ -55,6 +62,10 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Doing Motor");
                             Motor();
                             break;
+                        case 7:
+                            Console.WriteLine("Doing MotorControl");
+                            MotorControl(state);
+                            break;
                         default:
                             Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                             Console.WriteLine("========================================");
@@ -64,6 +75,7 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
                             Console.WriteLine("5. Doing LED PWM                         ... Works on Raspian AND IoT-Core");
                             Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Works on Raspian ... should work on IoT-Core.");
+                            Console.WriteLine("10. to 15.  Doing Motor H-Bridge style with L293D. . See MotorControl(()");
                             break;
                     }
                 }
@@ -77,6 +89,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire      ... Only works on Raspian");
                 Console.WriteLine("6. Doing Motor H-Bridge style with L293D ... Works on Raspian ... should work on IoT-Core.");
+                Console.WriteLine("10. to 15.  Doing Motor H-Bridge style with L293D. . See MotorControl(()");
             }
 
 
@@ -210,6 +223,10 @@ namespace DotNetCoreCoreGPIO
                 if (dht == null)
                 {
                     Console.WriteLine("Dht22 instantiation failed");
+
+
+
+
                 }
                 else
                 {
@@ -433,6 +450,50 @@ namespace DotNetCoreCoreGPIO
                     }
 
                 }
+
+            }
+        }
+
+        static void MotorControl(int state)
+        {
+            //GPIO Pin numbers:
+            //=================
+            var pinFwd = 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = 27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
+
+            //Nb: if pinFwd=pinRev hi or lo then its brake
+
+            using (GpioController controller = new GpioController())
+            {
+
+                    switch (state)
+                    {
+                        case 0: // Partial off
+                            controller.Write(pinRev, PinValue.Low);
+                            controller.Write(pinFwd, PinValue.Low);
+                        break;
+                        case 1: //Forward
+                            controller.Write(pinRev, PinValue.Low);
+                            controller.Write(pinFwd, PinValue.High);
+                            break;
+                        case 2: //Reverse
+                            controller.Write(pinFwd, PinValue.Low);
+                            controller.Write(pinRev, PinValue.High);
+                            break;
+                        case 3: //Disable 
+                            controller.Write(pinEn, PinValue.Low);
+                            break;
+                        case 4: //Enable
+                            controller.Write(pinEn, PinValue.High);
+                            break;
+                        case 5: // Off
+                            controller.Write(pinEn, PinValue.Low);
+                            controller.Write(pinRev, PinValue.Low);
+                            controller.Write(pinFwd, PinValue.Low);
+                        break;
+
+                    }
 
             }
         }
