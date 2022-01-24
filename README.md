@@ -41,8 +41,8 @@ As above
 See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots. Doesn't work on IOT-Core.
 ## Motor
 See circuit diagram in Circuits folder, left part. <br>Pins (L293D pins in brackets):
-- Enable  GPIO22 (E1)
-- Reverse GPIO 22 (I1) 
+- Enable  GPIO 22 (E1)
+- Reverse GPIO 27 (I1) 
 - Forward GPIO 17 (I2)
 <p>
 <b>On IoT-Core DO NOT RUN IN POWERSHELL.  Can't get user input for Console app in Remote PowerShell.<br> Run an SSH session.</b>Or directlly on the device.<br>
