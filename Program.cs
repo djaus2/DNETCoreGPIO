@@ -464,10 +464,18 @@ namespace DotNetCoreCoreGPIO
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
 
+
             using (GpioController controller = new GpioController())
             {
+                controller.OpenPin(pinEn, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinEn}");
+                controller.OpenPin(pinRev, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output:Reverse): {pinRev}");
+                controller.OpenPin(pinFwd, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output:Forward): {pinFwd}");
 
-                    switch (state)
+
+                switch (state)
                     {
                         case 0: // Partial off
                             controller.Write(pinRev, PinValue.Low);
