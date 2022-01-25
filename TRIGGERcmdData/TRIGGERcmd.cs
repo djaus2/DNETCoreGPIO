@@ -122,16 +122,12 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                                     if (!lastResult)
                                     {
                                         Console.WriteLine("");
-                                        if (++numTries >= maxNumTries)
-                                            return;
                                     }
-                                    else
-                                    {
-                                        Console.Write($"Temperature: {temp.DegreesCelsius.ToString("0.0")} °C ");
-                                        Console.Write($"Humidity: { humid.Percent.ToString("0.0")} % ");
-                                        Console.WriteLine("");
-                                        return;
-                                    }
+                                    lastResult = true;
+                                    Console.Write($"Temperature: {temp.DegreesCelsius.ToString("0.0")} °C ");
+                                    Console.Write($"Humidity: { humid.Percent.ToString("0.0")} % ");
+                                    Console.WriteLine("");
+                                    return;
                                 }
                             }
                         }
