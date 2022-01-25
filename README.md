@@ -2,11 +2,9 @@
 
 <hr/>
 
-**Coming** TRIGGETcmd commands.json file for this app. Run with Hey Google, ...
+**TRIGGETcmd** Now implemented DHT22 1 wire and Motor commands using Hey Google, ... Nb Speech is on RPi though.  
 
-**23 Jan 2021 _later_** Updated for **Net6.0** and for version **2.0.0-prerelease.22069.4** releases of **Iot.Device.Bindings** and **System.Device.Gpio Nuget pacakages**.
-
-**23 Jan 2021 _earlier_** [View here](https://github.com/djaus2/DNETCoreGPIO/tree/3410a325b632bcd85e09dc3ec7d53e7164a10a55) Updated for **Net5.0** and for versions 1.5 (stable) releases of **Iot.Device.Bindings** and **System.Device.Gpio Nuget pacakages**.
+**Currently** .Net 6.0 and 2.0.0-prerelease.22069 for GPIO abd Device Bindings.
 
 <hr/>
 
