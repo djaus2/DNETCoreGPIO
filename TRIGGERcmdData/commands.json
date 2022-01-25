@@ -42,6 +42,13 @@
     "allowParams": "false"
   },
   {
+    "trigger": "DNETCoreGPIO Get-Temp with DHT22-i-Wire",
+    "command": "cast -file /tmp/temperature.txt",
+    "ground": "foreground",
+    "voice": "wire",
+    "allowParams": "false"
+  },
+  {
     "trigger": "DNETCoreGPIO Motor Enable",
     "command": "bash /home/pi/DNETCoreGPIO.sh 24",
     "offCommand": "bash /home/pi/DNETCoreGPIO.sh 25",
