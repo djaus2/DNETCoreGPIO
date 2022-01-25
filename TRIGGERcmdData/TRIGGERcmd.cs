@@ -50,7 +50,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     break;
                 case > 19:
                     int state = index - 20;
-                    Console.WriteLine("Doing MotorControl single pass");
+                    Console.WriteLine($"Doing MotorControl single pass state:{state}.");
                     TRIGGERcmd.Trigger(state);
                     break;
             }
@@ -69,7 +69,6 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 if (dht == null)
                 {
                     Console.WriteLine("Dht22 instantiation failed");
-                    if (++numTries >= maxNumTries)
                         return;
 
                 }
@@ -195,6 +194,15 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                         break;
 
                 }
+                string result = $"Done Motor Control. State equals ({state})";
+                if (File.Exists("/tmp/temperature.txt"))
+                {
+                    // If file found, delete it    
+                    File.Delete("/tmp/temperature.txt");
+                    Console.WriteLine("File deleted.");
+                }
+                File.WriteAllText("/tmp/temperature.txt", result);
+                return;
 
             }
         }

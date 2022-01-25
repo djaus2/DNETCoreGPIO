@@ -437,7 +437,7 @@ namespace DotNetCoreCoreGPIO
                                 controller.Write(pinFwd, PinValue.Low);
                             }
                             break;
-                        case 'E': //Enable
+                        case 'E': //Enabledede
                             controller.Write(pinEn, PinValue.High);
                             break;
                         case 'D': //Disable
