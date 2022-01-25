@@ -166,7 +166,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 controller.OpenPin(pinFwd, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output:Forward): {pinFwd}");
 
-
+                Console.WriteLine($"2 Doing MotorControl single pass state:{state}.");
                 switch (state)
                 {
                     case 0: // Partial off
