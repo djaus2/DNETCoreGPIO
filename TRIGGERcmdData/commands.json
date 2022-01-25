@@ -42,10 +42,10 @@
     "allowParams": "false"
   },
   {
-    "trigger": "DNETCoreGPIO Get-Temp with DHT22-i-Wire",
+    "trigger": "Cast Temp",
     "command": "cast -file /tmp/temperature.txt",
     "ground": "foreground",
-    "voice": "wire",
+    "voice": "cast",
     "allowParams": "false"
   },
   {
