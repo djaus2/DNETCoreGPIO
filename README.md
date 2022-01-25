@@ -4,7 +4,7 @@
 
 **TRIGGETcmd** Now implemented DHT22 1 wire and Motor commands using Hey Google, ... Nb Speech is on RPi though.  
 
-**Currently** .Net 6.0 and 2.0.0-prerelease.22069 for GPIO abd Device Bindings.
+**Currently** .Net 6.0 and 2.0.0-prerelease.22069 for GPIO and Device Bindings.
 
 <hr/>
 
