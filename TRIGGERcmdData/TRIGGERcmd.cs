@@ -51,12 +51,12 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 case > 19:
                     int state = index - 20;
                     Console.WriteLine($"Doing MotorControl single pass state:{state}.");
-                    TRIGGERcmd.Trigger(state);
+                    MotorControl(state);
                     break;
             }
         }
 
-        static void GetTempDHTxx1Wire( int maxNumTries)
+        static void GetTempDHTxx1Wire(int maxNumTries)
         {
             int numTries = 0;
             int delayMs = 2000;
@@ -69,7 +69,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 if (dht == null)
                 {
                     Console.WriteLine("Dht22 instantiation failed");
-                        return;
+                    return;
 
                 }
                 else
@@ -129,13 +129,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                                     Console.WriteLine("");
                                     string result = $"Temperature equals {temp.DegreesCelsius.ToString("0.0")} °C ";
                                     result += $"and Humidity equals { humid.Percent.ToString("0.0")} % ";
-                                    if (File.Exists("/tmp/temperature.txt"))
-                                    {
-                                        // If file found, delete it    
-                                        File.Delete("/tmp/temperature.txt");
-                                        Console.WriteLine("File deleted.");
-                                    }
-                                    File.WriteAllText("/tmp/temperature.txt", result);
+                                    WriteT2S(result);
                                     return;
                                 }
                             }
@@ -155,7 +149,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             var pinEn = 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
-
+            Console.WriteLine(state);
 
             using (GpioController controller = new GpioController())
             {
@@ -167,44 +161,56 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 Console.WriteLine($"GPIO pin enabled for use (Output:Forward): {pinFwd}");
 
                 Console.WriteLine($"2 Doing MotorControl single pass state:{state}.");
+                string stateStr = "";
                 switch (state)
                 {
                     case 0: // Partial off
                         controller.Write(pinRev, PinValue.Low);
                         controller.Write(pinFwd, PinValue.Low);
+                        stateStr = "Partial Off";
                         break;
                     case 1: //Forward
                         controller.Write(pinRev, PinValue.Low);
                         controller.Write(pinFwd, PinValue.High);
+                        stateStr = "Forward";
                         break;
                     case 2: //Reverse
                         controller.Write(pinFwd, PinValue.Low);
                         controller.Write(pinRev, PinValue.High);
+                        stateStr = "Reverse";
                         break;
                     case 3: //Disable 
                         controller.Write(pinEn, PinValue.Low);
+                        stateStr = "Disable";
                         break;
                     case 4: //Enable
                         controller.Write(pinEn, PinValue.High);
+                        stateStr = "Enable";
                         break;
                     case 5: // Off
                         controller.Write(pinEn, PinValue.Low);
                         controller.Write(pinRev, PinValue.Low);
                         controller.Write(pinFwd, PinValue.Low);
+                        stateStr = "Off";
                         break;
 
                 }
-                string result = $"Done Motor Control. State equals ({state})";
-                if (File.Exists("/tmp/temperature.txt"))
-                {
-                    // If file found, delete it    
-                    File.Delete("/tmp/temperature.txt");
-                    Console.WriteLine("File deleted.");
-                }
-                File.WriteAllText("/tmp/temperature.txt", result);
-                return;
-
+                string result = $"Done Motor Control. Command equals ({stateStr})";
+                Console.WriteLine(result);
+                WriteT2S(result);
             }
+        }
+
+        private static void WriteT2S(string txt)
+        {
+            if (File.Exists("/tmp/temperature.txt"))
+            {
+                // If file found, delete it    
+                File.Delete("/tmp/temperature.txt");
+                Console.WriteLine("File deleted.");
+            }
+            File.WriteAllText("/tmp/temperature.txt", txt);
+            return;
         }
     }
 }
