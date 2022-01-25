@@ -35,10 +35,10 @@
     "allowParams": "false"
   },
   {
-    "trigger": "DNETCoreGPIO Get-Temp with DHT22-i-Wire",
+    "trigger": "DNETCoreGPIO Get-Temp with DHT22-i-Wire Single Value",
     "command": "bash /home/pi/DNETCoreGPIO.sh 14",
     "ground": "foreground",
-    "voice": "wire",
+    "voice": "single",
     "allowParams": "false"
   },
   {
