@@ -10,6 +10,7 @@ using Iot.Device.Bmp180;
 using Iot.Device.DHTxx;
 using System.Threading;
 using System.Device.Pwm.Drivers;
+using DNETCoreGPIO.TRIGGERcmdData;
 
 namespace DotNetCoreCoreGPIO
 {
@@ -31,11 +32,6 @@ namespace DotNetCoreCoreGPIO
                 int index;
                 if (int.TryParse(args[0], out index))
                 {
-                    if (index >9)
-                    {
-                        state = index - 10;
-                        index = 7;
-                    }
                     switch (index)
                     {
                         case 1:
@@ -62,9 +58,8 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Doing Motor");
                             Motor();
                             break;
-                        case 7:
-                            Console.WriteLine("Doing MotorControl");
-                            MotorControl(state);
+                        case >9:
+                            TRIGGERcmd.Trigger(index);
                             break;
                         default:
                             Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
@@ -458,57 +453,7 @@ namespace DotNetCoreCoreGPIO
             }
         }
 
-        static void MotorControl(int state)
-        {
-            //GPIO Pin numbers:
-            //=================
-            var pinFwd = 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = 27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
-            //Nb: if pinFwd=pinRev hi or lo then its brake
-
-
-            using (GpioController controller = new GpioController())
-            {
-                controller.OpenPin(pinEn, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinEn}");
-                controller.OpenPin(pinRev, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output:Reverse): {pinRev}");
-                controller.OpenPin(pinFwd, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output:Forward): {pinFwd}");
-
-
-                switch (state)
-                    {
-                        case 0: // Partial off
-                            controller.Write(pinRev, PinValue.Low);
-                            controller.Write(pinFwd, PinValue.Low);
-                        break;
-                        case 1: //Forward
-                            controller.Write(pinRev, PinValue.Low);
-                            controller.Write(pinFwd, PinValue.High);
-                            break;
-                        case 2: //Reverse
-                            controller.Write(pinFwd, PinValue.Low);
-                            controller.Write(pinRev, PinValue.High);
-                            break;
-                        case 3: //Disable 
-                            controller.Write(pinEn, PinValue.Low);
-                            break;
-                        case 4: //Enable
-                            controller.Write(pinEn, PinValue.High);
-                            break;
-                        case 5: // Off
-                            controller.Write(pinEn, PinValue.Low);
-                            controller.Write(pinRev, PinValue.Low);
-                            controller.Write(pinFwd, PinValue.Low);
-                        break;
-
-                    }
-
-            }
-        }
 
 
     }

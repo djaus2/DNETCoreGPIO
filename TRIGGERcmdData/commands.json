@@ -35,17 +35,24 @@
     "allowParams": "false"
   },
   {
-    "trigger": "DNETCoreGPIO Motor Enable",
+    "trigger": "DNETCoreGPIO Get-Temp with DHT22-i-Wire",
     "command": "bash /home/pi/DNETCoreGPIO.sh 14",
-    "offCommand": "bash /home/pi/DNETCoreGPIO.sh 15",
+    "ground": "foreground",
+    "voice": "wire",
+    "allowParams": "false"
+  },
+  {
+    "trigger": "DNETCoreGPIO Motor Enable",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 24",
+    "offCommand": "bash /home/pi/DNETCoreGPIO.sh 25",
     "ground": "foreground",
     "voice": "motor",
     "allowParams": "true"
   },
   {
     "trigger": "DNETCoreGPIO Motor Direction",
-    "command": "bash /home/pi/DNETCoreGPIO.sh 11",
-    "offCommand": "bash /home/pi/DNETCoreGPIO.sh 12",
+    "command": "bash /home/pi/DNETCoreGPIO.sh 21",
+    "offCommand": "bash /home/pi/DNETCoreGPIO.sh 22",
     "ground": "foreground",
     "voice": "spin",
     "allowParams": "true"
