@@ -10,6 +10,7 @@ using Iot.Device.Bmp180;
 using Iot.Device.DHTxx;
 using System.Threading;
 using System.Device.Pwm.Drivers;
+using System.IO;
 
 namespace DNETCoreGPIO.TRIGGERcmdData
 {
@@ -127,6 +128,15 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                                     Console.Write($"Temperature: {temp.DegreesCelsius.ToString("0.0")} °C ");
                                     Console.Write($"Humidity: { humid.Percent.ToString("0.0")} % ");
                                     Console.WriteLine("");
+                                    string result = $"Temperature equals {temp.DegreesCelsius.ToString("0.0")} °C ";
+                                    result += $"and Humidity equals { humid.Percent.ToString("0.0")} % ";
+                                    if (File.Exists("/tmp/temperature.txt"))
+                                    {
+                                        // If file found, delete it    
+                                        File.Delete("/tmp/temperature.txt");
+                                        Console.WriteLine("File deleted.");
+                                    }
+                                    File.WriteAllText("/tmp/temperature.txt", result);
                                     return;
                                 }
                             }
