@@ -2,7 +2,8 @@
 
 <hr/>
 
-**TRIGGETcmd** Now implemented DHT22 1 wire and Motor commands using Hey Google, ... Nb Speech is on RPi though. **Update** Can now send speech the Google Nest! 
+**TRIGGETcmd** Now implemented DHT22 1 wire and Motor commands using Hey Google, ... Nb Speech is on RPi though.  
+**Update** Can now send speech to the Google Nest! Separate repository coming
 
 **Currently** .Net 6.0 and 2.0.0-prerelease.22069 for GPIO and Device Bindings.
 
