@@ -22,9 +22,13 @@ Whereas the samples therein (from which this is taken, and extended) use library
 4. Temperature and Humidity with DHT22 sensor using 1-Wire <-- Works on Raspian not IOT-Core
 5. LED driven by Software PWM.  <-- Works
 6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed). Works on IoT-Core (see below though).
+
 Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
+
 14. Temperature and Humidity with DHT22 sensor using 1-Wire. Get single value and write to /tmp/temperature.txt. See TRIGGERcmd.GetTempDHTxx1Wire()  
+
 The following control the motor as in 6 but as separate commands.
+
 20. Motor Partial off: Set Fwd and Rev to off
 21. Motor Forward
 22. Motor Reverse
