@@ -2,7 +2,7 @@
 
 <hr/>
 
-**TRIGGETcmd** Now implemented DHT22 1 wire and Motor commands using Hey Google, ... Nb Speech is on RPi though.  
+**TRIGGETcmd** Now implemented DHT22 1 wire and Motor commands using Hey Google, ... Nb Speech is on RPi though. **Update** Can now send speech the Google Nest! 
 
 **Currently** .Net 6.0 and 2.0.0-prerelease.22069 for GPIO and Device Bindings.
 
@@ -40,7 +40,9 @@ The following control the motor as in 6 but as separate commands.
 **To run**  
 - If publishing from desktop to RPI, from within the deployed folder: ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.
 - Assuming the .Net Framework is installed _(Net 6 for latest)_ on the RPi etc:
-  - If cloned repository to RPI, ```dotnet build``` in the root of the repository copy then ```dotnet run n``` there where n is 1..6 as above.
+  - If cloned repository to RPI, ```dotnet build``` in the root of the repository clone then ```dotnet run n``` there where n is 1..6 as above.
+    - Or ```DNETCoreGPIO n``` if built folder, eg ~/GPIO/DNETCoreGPIO/bin/net6.0 is in the PATH
+  - In this latest iteration I installed VS Code on the RPi.
 
 # Run
 ## Running Led and Button
@@ -70,4 +72,4 @@ You need to Publish the app from Visual Studio for linux-arm or win-arm. You can
 
 NB: You could though build and deploy from VS Code.
 
-More on [My Blog](http://www.sportronics.com.au)
+More on [My Blog](https://davidjones.sportronics.com.au)
