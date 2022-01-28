@@ -2,7 +2,7 @@
 
 <hr/>
 
-**TRIGGETcmd** Now implemendted for control of RPi see https://github.com/djaus2/TRIGGERcmdRPi
+**TRIGGERcmd** Now implemendted for control of RPi using this app. See https://github.com/djaus2/TRIGGERcmdRPi
 
 **Currently** .Net 6.0 and 2.0.0-prerelease.22069 for GPIO and Device Bindings.
 
