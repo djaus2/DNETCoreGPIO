@@ -16,12 +16,12 @@ Whereas the samples therein (from which this is taken, and extended) use library
 
 **Code includes:_(i.e. Run the app with the following parameters)_**
 
-1. Led and Button press  <-- Works
+1. Led and Button press
 2. Temperature with BME280 sensor  ..2Do
 3. Temperature and Humidity with DHTxx sensor  ..2Do
-4. Temperature and Humidity with DHT22 sensor using 1-Wire <-- Works on Raspian not IOT-Core
-5. LED driven by Software PWM.  <-- Works
-6. H-Bridge Motor using L293D <-- Works on Raspian (Pins have changed). Works on IoT-Core (see below though).
+4. Temperature and Humidity with DHT22 sensor using 1-Wire <
+5. LED driven by Software PWM.
+6. H-Bridge Motor using L293D
 
 Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
 
