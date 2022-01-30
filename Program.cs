@@ -69,35 +69,37 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire");
                             Console.WriteLine("5. Doing LED PWM");
+                            Console.WriteLine("6. Doing Motor H-Bridge style with L293D.");
                             Console.WriteLine("Following are only a single pass:");
                             Console.WriteLine("========================================");
-                            Console.WriteLine("6. Doing Motor H-Bridge style with L293D."); 
-                            Console.WriteLine("20. to 25.  Doing Motor Control as single commands");
-                            Console.WriteLine("20. Motor Partial off: Set Fwd and Rev to off");
-                            Console.WriteLine("21/22. Motor Forward/Reverse");
-                            Console.WriteLine("23/24. Motor Enable/Disable)");
-                            Console.WriteLine("25. Motor Off (Fwd=Rev=En=off)");
+                            Console.WriteLine("14.       DHT22-1-Wire: Get single value and write to /tmp/temperature.txt.");
+                            Console.WriteLine("20...25.  Doing Motor Control as single commands");
+                            Console.WriteLine("20.       Motor Partial off: Set Fwd and Rev to off");
+                            Console.WriteLine("21/22.    Motor Forward/Reverse");
+                            Console.WriteLine("23/24.    Motor Enable/Disable)");
+                            Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
                             break;
                     }
                 }
             }
             else
             {
-                            Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
+                Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Doing Blink-LED");
                 Console.WriteLine("2. Doing Get-Temp with BMP180            ... Not tested yet.");
                 Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire");
                 Console.WriteLine("5. Doing LED PWM");
+                Console.WriteLine("6. Doing Motor H-Bridge style with L293D.");
                 Console.WriteLine("Following are only a single pass:");
                 Console.WriteLine("========================================");
-                Console.WriteLine("6. Doing Motor H-Bridge style with L293D."); 
-                Console.WriteLine("20. to 25.  Doing Motor Control as single commands");
-                Console.WriteLine("20. Motor Partial off: Set Fwd and Rev to off");
-                Console.WriteLine("21/22. Motor Forward/Reverse");
-                Console.WriteLine("23/24. Motor Enable/Disable)");
-                Console.WriteLine("25. Motor Off (Fwd=Rev=En=off)");
+                Console.WriteLine("14.       DHT22-1-Wire: Get single value and write to /tmp/temperature.txt.");
+                Console.WriteLine("20...25.  Doing Motor Control as single commands");
+                Console.WriteLine("20.       Motor Partial off: Set Fwd and Rev to off");
+                Console.WriteLine("21/22.    Motor Forward/Reverse");
+                Console.WriteLine("23/24.    Motor Enable/Disable)");
+                Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
             }
 
 
