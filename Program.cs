@@ -58,7 +58,13 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Doing Motor");
                             Motor();
                             break;
-                        case >9:
+                        case 14:
+                        case 20:
+                        case 21:
+                        case 22:
+                        case 23:
+                        case 24:
+                        case 25:
                             TRIGGERcmd.Trigger(index);
                             break;
                         default:
