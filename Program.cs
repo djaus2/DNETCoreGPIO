@@ -25,7 +25,7 @@ namespace DotNetCoreCoreGPIO
             Console.WriteLine("Based upon the https://github.com/dotnet/iot repository.");
             Console.WriteLine("Uses 2 Nuget packages from there: Iot.Device.Bindings and System.Device.Gpio ");
             Console.WriteLine("See in app how to include them in your .NET Core projects.");
-            Console.WriteLine("This version has option 7: Run app once for each state change. See MotorControl().");
+            Console.WriteLine("This version has single pass options for \"Hey Google,\" TRIGGERcmds.");
             Console.WriteLine();
             if (args.Length > 0)
             {
@@ -58,6 +58,8 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Doing Motor");
                             Motor();
                             break;
+                        case 11:
+                        case 12:
                         case 14:
                         case 20:
                         case 21:
@@ -76,8 +78,9 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire");
                             Console.WriteLine("5. Doing LED PWM");
                             Console.WriteLine("6. Doing Motor H-Bridge style with L293D.");
-                            Console.WriteLine("Following are only a single pass:");
+                            Console.WriteLine("Following are only a single pass (Headless):");
                             Console.WriteLine("========================================");
+                            Console.WriteLine("11/12.    Relay On/Off");
                             Console.WriteLine("14.       DHT22-1-Wire: Get single value and write to /tmp/temperature.txt.");
                             Console.WriteLine("20...25.  Doing Motor Control as single commands");
                             Console.WriteLine("20.       Motor Partial off: Set Fwd and Rev to off");
@@ -98,8 +101,9 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire");
                 Console.WriteLine("5. Doing LED PWM");
                 Console.WriteLine("6. Doing Motor H-Bridge style with L293D.");
-                Console.WriteLine("Following are only a single pass:");
+                Console.WriteLine("Following are only a single pass (Headless):");
                 Console.WriteLine("========================================");
+                Console.WriteLine("11/12.    Relay On/Off");
                 Console.WriteLine("14.       DHT22-1-Wire: Get single value and write to /tmp/temperature.txt.");
                 Console.WriteLine("20...25.  Doing Motor Control as single commands");
                 Console.WriteLine("20.       Motor Partial off: Set Fwd and Rev to off");
@@ -110,7 +114,7 @@ namespace DotNetCoreCoreGPIO
 
 
             Console.WriteLine("Done!");
-            if (index < 10)
+            if (index < 7)
             {
                 // Skip press for headless
                 Console.WriteLine("Press [Return] to exit");

@@ -29,12 +29,10 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             switch (index)
             {
                 case 11:
-                    //Console.WriteLine("Doing Blink-LED");
-                    //Blinkled();
+                    Relay(true);
                     break;
                 case 12:
-                    //Console.WriteLine("Doing Get-Temp with BMP180");
-                    //BMP180Sampler.Run();
+                    Relay(false);
                     break;
                 case 13:
                     //Console.WriteLine("Doing Get-Temp with DHTxx");
@@ -211,6 +209,26 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             }
             File.WriteAllText("/tmp/temperature.txt", txt);
             return;
+        }
+
+        private static void Relay(bool on)
+        {
+            var pinRelay = 19;  
+            using (GpioController controller = new GpioController())
+            {
+                controller.OpenPin(pinRelay, System.Device.Gpio.PinMode.Output);
+                if (on)
+                {
+                    Console.WriteLine($"Setting Relay to ON");
+                    controller.Write(pinRelay, System.Device.Gpio.PinValue.High);
+                }
+                else
+                {
+                    Console.WriteLine($"Setting Relay to OFF");
+                    controller.Write(pinRelay, System.Device.Gpio.PinValue.Low);
+                }
+            }
+
         }
     }
 }

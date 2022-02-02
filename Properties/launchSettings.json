@@ -2,7 +2,7 @@
   "profiles": {
     "DNETCoreGPIO": {
       "commandName": "Project",
-      "commandLineArgs": "2"
+      "remoteDebugEnabled": false
     }
   }
 }
