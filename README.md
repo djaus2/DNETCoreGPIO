@@ -24,7 +24,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 6. H-Bridge Motor using L293D
 
 Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
-
+11/12. Relay On/Off
 14. Temperature and Humidity with DHT22 sensor using 1-Wire. Get single value and write to /tmp/temperature.txt. See TRIGGERcmd.GetTempDHTxx1Wire()  
 
 The following control the motor as in 6 but as separate commands.
@@ -57,9 +57,16 @@ As above
 See circuit diagram under Circuits  .<br> Active pin is is GPIO26. I'm using a 10K pullup to that. <br>Some conversions fail, which output as dots. Doesn't work on IOT-Core.
 ## Motor
 See circuit diagram in Circuits folder, left part. <br>Pins (L293D pins in brackets):
-- Enable  GPIO 22 (E1)
+- Enable  GPIO 22 (E1) (L293D Enble 1)
 - Reverse GPIO 27 (I1) 
 - Forward GPIO 17 (I2)
+## Relay
+See circuit diagram in Circuits folder, right part. <br>Pins (L293D pins in brackets):
+- On/Off  GPIO 19 (E2)  _(L233D Enable 2)_
+- Lo (I4)               
+- Hi (I3)
+- _I4 and I3 only need to be in opposite state_
+- Probably want Motor disabled if is low voltage and relay is 12V coil voltage.
 <p>
 <b>On IoT-Core DO NOT RUN IN POWERSHELL.  Can't get user input for Console app in Remote PowerShell.<br> Run an SSH session.</b>Or directlly on the device.<br>
 I also attached a LED to each output.
