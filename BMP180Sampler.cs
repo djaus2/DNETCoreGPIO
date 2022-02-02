@@ -8,7 +8,9 @@
 using System;
 using System.Device.I2c;
 using System.Threading;
-using Iot.Device.Bmp180;
+using Iot.Device.Bmxx80;
+using Iot.Device.Common;
+using UnitsNet;
 //using Iot.Units;
 
 namespace DotNetCoreCoreGPIO
@@ -24,18 +26,38 @@ namespace DotNetCoreCoreGPIO
         /// <param name="args">Command line arguments</param>
         public static void Run()
         {
-            Console.WriteLine("Using BMP180!");
+            Console.WriteLine("Using BME280!");
 
             try
             {
+                // set this to the current sea level pressure in the area for correct altitude readings
+                Pressure defaultSeaLevelPressure = WeatherHelper.MeanSeaLevel;
                 // bus id on the raspberry pi 3
                 const int busId = 1;
+                I2cConnectionSettings i2cSettings = new(busId, Bme280.DefaultI2cAddress);
+                using I2cDevice i2cDevice = I2cDevice.Create(i2cSettings);
+                using Bme280 bme80 = new Bme280(i2cDevice)
+                {
+                    // set higher sampling
+                    TemperatureSampling = Sampling.LowPower,
+                    PressureSampling = Sampling.UltraHighResolution,
+                    HumiditySampling = Sampling.Standard,
 
-                var i2cSettings = new I2cConnectionSettings(busId, Bmp180.DefaultI2cAddress);
-                var i2cDevice = I2cDevice.Create(i2cSettings);
-                var i2cBmp280 = new Bmp180(i2cDevice);
+                };
 
-                if (i2cBmp280 != null)
+                // Perform a synchronous measurement
+                var readResult = bme80.Read();
+
+                // Note that if you already have the pressure value and the temperature, you could also calculate altitude by using
+                // var altValue = WeatherHelper.CalculateAltitude(preValue, defaultSeaLevelPressure, tempValue) which would be more performant.
+                bme80.TryReadAltitude(defaultSeaLevelPressure, out var altValue);
+
+                Console.WriteLine($"Temperature: {readResult.Temperature?.DegreesCelsius:0.#}\u00B0C");
+                Console.WriteLine($"Pressure: {readResult.Pressure?.Hectopascals:0.##}hPa");
+                Console.WriteLine($"Altitude: {altValue.Meters:0.##}m");
+                Console.WriteLine($"Relative humidity: {readResult.Humidity?.Percent:0.#}%");
+
+                /*if (i2cBmp280 != null)
                 {
                     using (i2cBmp280)
                     {
@@ -64,7 +86,7 @@ namespace DotNetCoreCoreGPIO
                     }
                 } else {
                     Console.WriteLine($"Failed: No DMP180");
-                }
+                }*/
             }
             catch (Exception)
             {
