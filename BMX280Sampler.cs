@@ -68,9 +68,9 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine($"Altitude: {altValue.Meters:0.##}m");
                 Console.WriteLine($"Relative humidity: {readResult.Humidity?.Percent:0.#}%");
 
-                result += $"Temperature: {readResult.Temperature?.DegreesCelsius:0.#}\u00B0C . ";
-                result += $"Pressure: {readResult.Pressure?.Hectopascals:0.##}hPa . ";
-                result += $"Altitude: {altValue.Meters:0.##}m . ";
+                result += $"Temperature: {readResult.Temperature?.DegreesCelsius:0.#}\u00B0C ./n";
+                result += $"Pressure: {readResult.Pressure?.Hectopascals:0.##}hPa ./n";
+                result += $"Altitude: {altValue.Meters:0.##}m ./n";
                 result += $"Relative humidity: {readResult.Humidity?.Percent:0.#}% .";
 
                 /*if (i2cBmp280 != null)
