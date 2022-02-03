@@ -18,22 +18,30 @@ namespace DotNetCoreCoreGPIO
     /// <summary>
     /// Test program main class
     /// </summary>
-    public static class BMP180Sampler
+    public static class BME280Sampler
     {
         /// <summary>
         /// Entry point for example program
         /// </summary>
         /// <param name="args">Command line arguments</param>
-        public static void Run()
+        public static void Get()
         {
             Console.WriteLine("Using BME280!");
+            Console.WriteLine(Bme280.DefaultI2cAddress);
 
             try
             {
                 // set this to the current sea level pressure in the area for correct altitude readings
                 Pressure defaultSeaLevelPressure = WeatherHelper.MeanSeaLevel;
-                // bus id on the raspberry pi 3
+                // bus id on the raspberry pi 3 for Pins 3 (SDA) and 5 (SCL)
                 const int busId = 1;
+                // Note for units with more than 4 pins (Vin, GND and SDA, SCL) ...
+                // Bme280.DefaultI2cAddress = 0x77 Need SD0 set to hi for that. If low its 0x76
+                // The Bosch documentation says make CSB hi for I2C, but many units have /CS which I treat as a chip set (ie Gnd it)
+                // Also for I2C to work need to enable the interafce in Menu Preferences/Raspberry Pi Configuration/Interfaces
+                // A check: i2cdetect -y 1
+                // Should show 77
+                // Ref: https://www.electroniclinic.com/i2c-serial-communication-bus-in-raspberry-pi/#:~:text=I2C%20bus%20in%20Raspberry%20pi%3A%20I2C%20bus%20represents,unlike%20the%20SPI%20bus%2C%20only%20uses%20two%20wires.
                 I2cConnectionSettings i2cSettings = new(busId, Bme280.DefaultI2cAddress);
                 using I2cDevice i2cDevice = I2cDevice.Create(i2cSettings);
                 using Bme280 bme80 = new Bme280(i2cDevice)
@@ -88,8 +96,9 @@ namespace DotNetCoreCoreGPIO
                     Console.WriteLine($"Failed: No DMP180");
                 }*/
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 Console.WriteLine("Failed: Probably no hw.");
             }
 

@@ -43,8 +43,8 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     GetTempDHTxx1Wire(MaxNumTries);
                     break;
                 case 15:
-                    //Console.WriteLine("Doing LED PWM");
-                    //SoftwarePWM();
+                    Console.WriteLine("Doing Get-Temp with BME280 One result only");
+                    DotNetCoreCoreGPIO.BME180Sampler.Get();
                     break;
                 case > 19:
                     int state = index - 20;
