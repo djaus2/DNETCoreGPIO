@@ -199,7 +199,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             }
         }
 
-        private static void WriteT2S(string txt)
+        public static void WriteT2S(string txt)
         {
             if (File.Exists("/tmp/temperature.txt"))
             {

@@ -8,6 +8,7 @@
 using System;
 using System.Device.I2c;
 using System.Threading;
+using DNETCoreGPIO.TRIGGERcmdData;
 using Iot.Device.Bmxx80;
 using Iot.Device.Common;
 using UnitsNet;
@@ -28,6 +29,7 @@ namespace DotNetCoreCoreGPIO
         {
             Console.WriteLine("Using BME280!");
             Console.WriteLine(Bme280.DefaultI2cAddress);
+            string result = "";
 
             try
             {
@@ -60,10 +62,16 @@ namespace DotNetCoreCoreGPIO
                 // var altValue = WeatherHelper.CalculateAltitude(preValue, defaultSeaLevelPressure, tempValue) which would be more performant.
                 bme80.TryReadAltitude(defaultSeaLevelPressure, out var altValue);
 
+
                 Console.WriteLine($"Temperature: {readResult.Temperature?.DegreesCelsius:0.#}\u00B0C");
                 Console.WriteLine($"Pressure: {readResult.Pressure?.Hectopascals:0.##}hPa");
                 Console.WriteLine($"Altitude: {altValue.Meters:0.##}m");
                 Console.WriteLine($"Relative humidity: {readResult.Humidity?.Percent:0.#}%");
+
+                result += $"Temperature: {readResult.Temperature?.DegreesCelsius:0.#}\u00B0C . ";
+                result += $"Pressure: {readResult.Pressure?.Hectopascals:0.##}hPa . ";
+                result += $"Altitude: {altValue.Meters:0.##}m . ";
+                result += $"Relative humidity: {readResult.Humidity?.Percent:0.#}% .";
 
                 /*if (i2cBmp280 != null)
                 {
@@ -100,8 +108,9 @@ namespace DotNetCoreCoreGPIO
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Failed: Probably no hw.");
+                result = $"Failed: Probably no hw.{ex.Message}";
             }
-
+            TRIGGERcmd.WriteT2S(result);
         }
 
     }
