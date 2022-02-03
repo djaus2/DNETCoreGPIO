@@ -26,6 +26,7 @@ Whereas the samples therein (from which this is taken, and extended) use library
 Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
 11/12. Relay On/Off
 14. Temperature and Humidity with DHT22 sensor using 1-Wire. Get single value and write to /tmp/temperature.txt. See TRIGGERcmd.GetTempDHTxx1Wire()  
+15. Temperature Pressure and Humidity with BME280. Get single values and write to /tmp/temperature.txt (Coming)
 
 The following control the motor as in 6 but as separate commands.
 
@@ -67,6 +68,11 @@ See circuit diagram in Circuits folder, right part. <br>Pins (L293D pins in brac
 - Hi (I3)
 - _I4 and I3 only need to be in opposite state_
 - Probably want Motor disabled if is low voltage and relay is 12V coil voltage.
+## BME280
+- See circuit diagram **rpi-bmp280_i2c.png** for 4 pin connections.
+- If unit is more than 4 pins see **BME280Sampler.Get()** for extra pins.
+- Also see there wrt **_enabling I2C on RPi_** and for checking.
+
 <p>
 <b>On IoT-Core DO NOT RUN IN POWERSHELL.  Can't get user input for Console app in Remote PowerShell.<br> Run an SSH session.</b>Or directlly on the device.<br>
 I also attached a LED to each output.

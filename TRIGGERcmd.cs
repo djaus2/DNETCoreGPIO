@@ -44,7 +44,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     break;
                 case 15:
                     Console.WriteLine("Doing Get-Temp with BME280 One result only");
-                    DotNetCoreCoreGPIO.BME180Sampler.Get();
+                    DotNetCoreCoreGPIO.BME280Sampler.Get();
                     break;
                 case > 19:
                     int state = index - 20;
