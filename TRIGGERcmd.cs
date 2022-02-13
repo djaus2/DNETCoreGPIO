@@ -14,6 +14,8 @@ using System.IO;
 
 namespace DNETCoreGPIO.TRIGGERcmdData
 {
+    private const string saythisFile = "/tmp/saythis.txt";
+    
     public static class TRIGGERcmd
     {
         const int MaxNumTries = 20; //For DHT22-i-Wire 
@@ -201,13 +203,13 @@ namespace DNETCoreGPIO.TRIGGERcmdData
 
         public static void WriteT2S(string txt)
         {
-            if (File.Exists("/tmp/temperature.txt"))
+            if (File.Exists(saythisFile))
             {
                 // If file found, delete it    
-                File.Delete("/tmp/temperature.txt");
-                Console.WriteLine("File deleted.");
+                File.Delete(saythisFile);
+                Console.WriteLine(saythisFile);
             }
-            File.WriteAllText("/tmp/temperature.txt", txt);
+            File.WriteAllText(saythisFile, txt);
             return;
         }
 
