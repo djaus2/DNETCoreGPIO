@@ -14,10 +14,11 @@ using System.IO;
 
 namespace DNETCoreGPIO.TRIGGERcmdData
 {
-    private const string saythisFile = "/tmp/saythis.txt";
+
     
     public static class TRIGGERcmd
     {
+        const string saythisFile = "/tmp/saythis.txt";
         const int MaxNumTries = 20; //For DHT22-i-Wire 
 
         /// <summary>
