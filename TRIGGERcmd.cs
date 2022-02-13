@@ -127,7 +127,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                                     Console.Write($"Temperature: {temp.DegreesCelsius.ToString("0.0")} °C ");
                                     Console.Write($"Humidity: { humid.Percent.ToString("0.0")} % ");
                                     Console.WriteLine("");
-                                    string result = $"Temperature equals {temp.DegreesCelsius.ToString("0.0")} °C ";
+                                    string result = $"Temperature equals {temp.DegreesCelsius.ToString("0.0")} °C ,";
                                     result += $"and Humidity equals { humid.Percent.ToString("0.0")} % ";
                                     WriteT2S(result);
                                     return;
@@ -209,7 +209,8 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 File.Delete(saythisFile);
                 Console.WriteLine(saythisFile);
             }
-            File.WriteAllText(saythisFile, txt);
+            string [] lines = txt.Split(',');
+            File.WriteAllLines(saythisFile, lines);
             return;
         }
 
