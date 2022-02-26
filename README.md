@@ -1,6 +1,8 @@
 # DNETCoreGPIO
 
 <hr/>
+**NB: 26th Fed 2022_ Please use  [https://iothub.sportronics.com.au](https://iothub.sportronics.com.au) instead of ```https://davidjones.sportronics.com.au``` for a day or so. Thx**
+<hr/>
 
 **TRIGGERcmd** Now implemendted for control of RPi using this app. See https://github.com/djaus2/TRIGGERcmdRPi
 
