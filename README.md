@@ -2,7 +2,7 @@
 
 <hr/>
 
-**NB: 26th Fed 2022_ Please use  [https://iothub.sportronics.com.au](https://iothub.sportronics.com.au) instead of ```https://davidjones.sportronics.com.au``` for a day or so. Thx**
+**NB: 26th Feb 2022_ Please use  [https://iothub.sportronics.com.au](https://iothub.sportronics.com.au) instead of ```https://davidjones.sportronics.com.au``` for a day or so. Thx**
 
 <hr/>
 
