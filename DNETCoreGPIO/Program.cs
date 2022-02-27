@@ -14,9 +14,9 @@ using DNETCoreGPIO.TRIGGERcmdData;
 
 namespace DotNetCoreCoreGPIO
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             int index = -1;
             Console.WriteLine("");
