@@ -2,15 +2,7 @@
 
 <hr/>
 
-<<<<<<< HEAD
-**TRIGGERcmd** Now implemendted for control of RPi using this app. See https://github.com/djaus2/TRIGGERcmdRPi  
-=======
-**NB: _27th Feb 2022_ https://davidjones.sportronics.com.au is fixed now. Thx**
-
-<hr/>
-
 **TRIGGERcmd** Now implemendted for control of RPi using this app. See https://github.com/djaus2/TRIGGERcmdRPi
->>>>>>> a5734eae64baeada8eb48411775eec35e9305f09
 
 **Currently** .Net 5.0 and 2.0.0-prerelease.22069 for GPIO and Device Bindings.  
 
