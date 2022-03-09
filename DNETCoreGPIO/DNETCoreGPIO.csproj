@@ -4,10 +4,19 @@
  <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Figgle" Version="0.3.0" />
-    <PackageReference Include="Iot.Device.Bindings" Version="2.0.0-prerelease.22069.4" />
-    <PackageReference Include="System.Device.Gpio" Version="2.0.0-prerelease.22069.4" />
+    <PackageReference Include="Figgle" Version="0.4.0" />
+    <PackageReference Include="Iot.Device.Bindings" Version="2.1.0" />
+    <PackageReference Include="System.Device.Gpio" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="docs\README.md" Pack="true" PackagePath="\" />
+    <None Include="images\djcolor.jpg" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

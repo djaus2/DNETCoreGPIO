@@ -13,8 +13,8 @@
 A .NET Core app to run on the RPi. Works with both Raspian and Win10 IoT-Core unchanged.
 Exemplifies System.Devices.GPIO and Iot.Device.Bindings Nuget packages. Provided as Visual Studio 2022 project.
 
-_**This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)<br>
-Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.**_
+***This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)<br>
+Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.***
 
 **Code includes:_(i.e. Run the app with the following parameters)_**
 
