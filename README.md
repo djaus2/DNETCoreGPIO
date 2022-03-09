@@ -19,7 +19,7 @@ Exemplifies System.Devices.GPIO and Iot.Device.Bindings Nuget packages. Provided
 _**This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)<br>
 Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.**_
 
-**Code includes:_(i.e. Run the app with the following parameters)_**
+**Code includes:_(i.e. Run the app with one of the following as the _first_ parameters)_**
 
 1. Led and Button press
 2. Temperature with BME280 sensor  ..2Do
@@ -29,9 +29,15 @@ Whereas the samples therein (from which this is taken, and extended) use library
 6. H-Bridge Motor using L293D
 
 Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
+Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
+
 11/12. Relay On/Off
-14. Temperature and Humidity with DHT22 sensor using 1-Wire. Get single value and write to /tmp/temperature.txt. See TRIGGERcmd.GetTempDHTxx1Wire()  
-15. Temperature Pressure and Humidity with BME280. Get single values and write to /tmp/temperature.txt (Coming)
+
+14. Temperature and Humidity with DHT22 sensor using 1-Wire.  
+Get single value and write to /tmp/temperature.txt on RPi  
+See TRIGGERcmd.GetTempDHTxx1Wire()  
+15. Temperature Pressure and Humidity with BME280.  
+Get single values and write to /tmp/temperature.txt, on RPi
 
 The following control the motor as in 6 but as separate commands.
 

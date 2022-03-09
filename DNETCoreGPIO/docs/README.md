@@ -40,7 +40,7 @@ _Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively
 
 ## Parameters
 
-**Run the app with the following parameters**
+**Run the app with one of the following as the first parameter** _Note possible 2nd parameter for GPIO mappings as above._  
 
 1. Led and Button press
 2. Temperature with BME280 sensor  ..2Do
@@ -51,9 +51,14 @@ _Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively
 
 Whilst the above run continously or until stopped the following only do a single pass.  
 ***These are used by TRIGGERcmd***  
-11/12. Relay On/Off  
-14. Temperature and Humidity with DHT22 sensor using 1-Wire. Get single value and write to /tmp/temperature.txt. See TRIGGERcmd.GetTempDHTxx1Wire()  
-15. Temperature Pressure and Humidity with BME280. Get single values and write to /tmp/temperature.txt  
+
+11/12. Relay On/Off
+
+14. Temperature and Humidity with DHT22 sensor using 1-Wire.  
+Get single value and write to /tmp/temperature.txt on RPi  
+See TRIGGERcmd.GetTempDHTxx1Wire()  
+15. Temperature Pressure and Humidity with BME280.  
+Get single values and write to /tmp/temperature.txt, on RPi
 
 The following control the motor as in 6 but as separate commands.
 
