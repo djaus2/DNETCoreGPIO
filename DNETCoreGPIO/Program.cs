@@ -11,13 +11,18 @@ using Iot.Device.DHTxx;
 using System.Threading;
 using System.Device.Pwm.Drivers;
 using DNETCoreGPIO.TRIGGERcmdData;
+using System.Collections.Generic;
 
 namespace DotNetCoreCoreGPIO
 {
+    public enum PinNames { led,button, dht22,motoren, motorfwd,motorrev,relay}
+
     public static class Program
     {
+        private static int[] gpios;
         public static void Main(string[] args)
         {
+            gpios = new int[] { 17,4,26,22,27,17,19 };
             int index = -1;
             Console.WriteLine("");
             Console.WriteLine(Figgle.FiggleFonts.Standard.Render("DNETCoreGPIO"));
@@ -29,7 +34,27 @@ namespace DotNetCoreCoreGPIO
             Console.WriteLine();
             if (args.Length > 0)
             {
-    
+                if (args.Length > 1)
+                {
+                    //Expect "17,4,26,22,27,17,19"
+                    string pinsStr = args[1];
+                    if (!string.IsNullOrEmpty(pinsStr))
+                    {
+                        string[] gpioStrArr = pinsStr.Split(new char[] { ',' });
+                        int i = 0;
+                        foreach (string gpioStr in gpioStrArr)
+                        {
+                            if (! string.IsNullOrEmpty(gpioStr))
+                            {
+                                if (int.TryParse(gpioStr.Trim(), out int gpio))
+                                {
+                                    gpios[i] = gpio;
+                                }
+                            }
+                            i++;
+                        }
+                    }
+                }  
                 if (int.TryParse(args[0], out index))
                 {
                     switch (index)
@@ -131,8 +156,8 @@ namespace DotNetCoreCoreGPIO
         /// </summary>
         static void Blinkled()
         {
-            var pinOut = 17;// <- Pin 11            Connect to LED Grounded through led and resitor (1kish)
-            var pinIn = 4;  // <- Actual Pin 7     Connect to press button, pulled hi
+            var pinOut = gpios[(int)PinNames.led]; // 17;// <- Pin 11            Connect to LED Grounded through led and resitor (1kish)
+            var pinIn = gpios[(int)PinNames.button] ;// 4;  // <- Actual Pin 7     Connect to press button, pulled hi
             var lightTimeInMilliseconds = 1000;
             var dimTimeInMilliseconds = 200;
 
@@ -242,7 +267,7 @@ namespace DotNetCoreCoreGPIO
         {
             int delayMs = 2000;
             //1-Wire:
-            int  pin = 26;
+            int pin = gpios[(int)PinNames.dht22]; // 26;
             Console.WriteLine("Using DH22-1-Wire1");
             bool lastResult = true;
             using (Dht22 dht = new Dht22(pin))

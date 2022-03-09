@@ -4,9 +4,12 @@
 
 **TRIGGERcmd** Now implemendted for control of RPi using this app. See https://github.com/djaus2/TRIGGERcmdRPi
 
-**Currently** .Net 5.0 and 2.0.0-prerelease.22069 for GPIO and Device Bindings.  
+**Currently** .Net 5.0 and 2.1.0 for GPIO and Device Bindings.  
 
-**Functionality is now a library** which is called by a simple Console App. Will add the lib to Nuget.  
+**Functionality is now a library** which is called by a simple Console App. Can also get from Nuget.  
+
+**New Feature:** Can change GPIO mappings as second parameter. eg "17,4,26,22,27,17,19", which is the current settings.  
+_Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively._
 
 <hr/>
 

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DNETCoreGPIO" Version="1.0.1" />
+    <PackageReference Include="DNETCoreGPIO" Version="*" />
   </ItemGroup>
 
 </Project>

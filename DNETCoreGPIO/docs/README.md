@@ -10,7 +10,8 @@ Run ```dotnet new console```
 
 Add the library as a Nuget package  
 Run ``` dotnet add package DNETCoreGPIO --version 1.0.x```  
-NB: Use the current version, in place of 1.0.x, check at https://www.nuget.org/packages/DNETCoreGPIO/  
+NB: Use the current version, in place of 1.0.x,check at https://www.nuget.org/packages/DNETCoreGPIO/  
+ _Can use \* to get latest._ 
 
 Change the 7th line in Program.cs as below:
 
@@ -33,7 +34,9 @@ Build and run the app with the required parameter._(See below)_
 ***This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)<br>
 Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.***
 
-  
+**New Feature:** Can change GPIO mappings as second parameter. eg "17,4,26,22,27,17,19", which is the current settings.  
+_Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively._
+
 
 ## Parameters
 
