@@ -11,6 +11,7 @@ using Iot.Device.DHTxx;
 using System.Threading;
 using System.Device.Pwm.Drivers;
 using System.IO;
+using DotNetCoreCoreGPIO;
 
 namespace DNETCoreGPIO.TRIGGERcmdData
 {
@@ -26,16 +27,16 @@ namespace DNETCoreGPIO.TRIGGERcmdData
         /// DHT22-i-Wire can get invalids so do multiple tries.
         /// </summary>
         /// <param name="index"></param>
-        public static void Trigger(int index)
+        public static void Trigger(int index, int[] gpios)
         {
 
             switch (index)
             {
                 case 11:
-                    Relay(true);
+                    Relay(true, gpios);
                     break;
                 case 12:
-                    Relay(false);
+                    Relay(false, gpios);
                     break;
                 case 13:
                     //Console.WriteLine("Doing Get-Temp with DHTxx");
@@ -43,7 +44,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     break;
                 case 14:
                     Console.WriteLine("Doing Get-Temp with DHT22-i-Wire One result only");
-                    GetTempDHTxx1Wire(MaxNumTries);
+                    GetTempDHTxx1Wire(MaxNumTries, gpios);
                     break;
                 case 15:
                     Console.WriteLine("Doing Get-Temp with BME280 One result only");
@@ -52,17 +53,17 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 case > 19:
                     int state = index - 20;
                     Console.WriteLine($"Doing MotorControl single pass state:{state}.");
-                    MotorControl(state);
+                    MotorControl(state, gpios);
                     break;
             }
         }
 
-        static void GetTempDHTxx1Wire(int maxNumTries)
+        static void GetTempDHTxx1Wire(int maxNumTries, int[] gpios)
         {
             int numTries = 0;
             int delayMs = 2000;
             //1-Wire:
-            int pin = 26;
+            int pin = gpios[(int)PinNames.dht22]; //26;
             Console.WriteLine("Using DH22-1-Wire1");
             bool lastResult = true;
             using (Dht22 dht = new Dht22(pin))
@@ -141,13 +142,13 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             }
         }
 
-        public static void MotorControl(int state)
+        public static void MotorControl(int state, int[] gpios)
         {
             //GPIO Pin numbers:
             //=================
-            var pinFwd = 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = 27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
+            var pinFwd = gpios[(int)PinNames.motorfwd];// 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = gpios[(int)PinNames.motorrev]; //27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = gpios[(int)PinNames.motoren]; // 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
             Console.WriteLine(state);
@@ -215,9 +216,9 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             return;
         }
 
-        private static void Relay(bool on)
+        private static void Relay(bool on, int[] gpios)
         {
-            var pinRelay = 19;  
+            var pinRelay = gpios[(int)PinNames.relay]; //19;  
             using (GpioController controller = new GpioController())
             {
                 controller.OpenPin(pinRelay, System.Device.Gpio.PinMode.Output);

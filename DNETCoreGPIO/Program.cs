@@ -93,7 +93,7 @@ namespace DotNetCoreCoreGPIO
                         case 23:
                         case 24:
                         case 25:
-                            TRIGGERcmd.Trigger(index);
+                            TRIGGERcmd.Trigger(index, gpios);
                             break;
                         default:
                             Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
@@ -340,7 +340,7 @@ namespace DotNetCoreCoreGPIO
         {
             Console.WriteLine("Connect LED to GND. Connect hi end through resistor to GPIO 17 Pin 11.");
             //var softwarePwmChannelWithPrecisionTimer = new SoftwarePwmChannel(17, frequency: 50, dutyCyclePercentage = 0.5, usePrecisionTimer: true);
-            using (var pwmChannel = new SoftwarePwmChannel(17, 200, 0))
+            using (var pwmChannel = new SoftwarePwmChannel(gpios[(int)PinNames.led], 200, 0))
             {
                 Console.WriteLine("Starting");
                 pwmChannel.Start();
@@ -364,9 +364,9 @@ namespace DotNetCoreCoreGPIO
         {
             //GPIO Pin numbers:
             //=================
-            var pinFwd = 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = 27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
+            var pinFwd = gpios[(int)PinNames.motorfwd];// 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = gpios[(int)PinNames.motorrev]; //27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = gpios[(int)PinNames.motoren]; // 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
 

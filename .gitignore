@@ -350,3 +350,5 @@ MigrationBackup/
 .ionide/
 /DNETCoreGPIO/DNETCoreGPIO.nuspec
 /DNETCoreGPIO/nuget.exe
+/ConsoleDNETCoreGPIOApp/Properties/launchSettings.json
+/ConsoleGPIONugetApp/Properties/launchSettings.json
