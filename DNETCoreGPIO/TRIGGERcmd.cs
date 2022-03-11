@@ -181,13 +181,13 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                         controller.Write(pinRev, PinValue.High);
                         stateStr = "Reverse";
                         break;
-                    case 3: //Disable 
-                        controller.Write(pinEn, PinValue.Low);
-                        stateStr = "Disable";
-                        break;
-                    case 4: //Enable
+                    case 3: //Enable
                         controller.Write(pinEn, PinValue.High);
                         stateStr = "Enable";
+                        break;
+                    case 4: //Disable 
+                        controller.Write(pinEn, PinValue.Low);
+                        stateStr = "Disable";
                         break;
                     case 5: // Off
                         controller.Write(pinEn, PinValue.Low);
