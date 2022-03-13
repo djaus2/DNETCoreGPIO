@@ -157,10 +157,11 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             {
                 controller.OpenPin(pinEn, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output:Enable): {pinEn}");
-                controller.OpenPin(pinRev, PinMode.Output);
-                Console.WriteLine($"GPIO pin enabled for use (Output:Reverse): {pinRev}");
                 controller.OpenPin(pinFwd, PinMode.Output);
                 Console.WriteLine($"GPIO pin enabled for use (Output:Forward): {pinFwd}");
+                controller.OpenPin(pinRev, PinMode.Output);
+                Console.WriteLine($"GPIO pin enabled for use (Output:Reverse): {pinRev}");
+
 
                 Console.WriteLine($"2 Doing MotorControl single pass state:{state}.");
                 string stateStr = "";
@@ -197,7 +198,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                         break;
 
                 }
-                string result = $"Done Motor Control. Command equals ({stateStr})";
+                string result = $"Done Motor Control. Command ({stateStr})";
                 Console.WriteLine(result);
                 WriteT2S(result);
             }
