@@ -31,7 +31,6 @@ Whereas the samples therein (from which this is taken, and extended) use library
 6. H-Bridge Motor using L293D
 
 Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
-Whilst the above run continously or until stopped the following only do a single pass. These are used by TRIGGERcmd
 
 11/12. Relay On/Off
 
