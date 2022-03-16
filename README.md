@@ -11,7 +11,7 @@
 **New Feature:** Can change GPIO mappings as second parameter. eg "17,4,26,22,27,17,19", which is the current settings.  
 _Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively._
 
-**Another:** __Can set,clear,toggle as single commands 16,17 and 18.__
+**Another:** __Can set,clear,toggle LED as single commands 16,17 and 18.__
 
 <hr/>
 
@@ -40,6 +40,10 @@ Get single value and write to /tmp/temperature.txt on RPi
 See TRIGGERcmd.GetTempDHTxx1Wire()  
 15. Temperature Pressure and Humidity with BME280.  
 Get single values and write to /tmp/temperature.txt, on RPi
+
+16. Set LED as per 1.
+17. Clear LED ditto
+18. Toggle LED ditt
 
 The following control the motor as in 6 but as separate commands.
 
