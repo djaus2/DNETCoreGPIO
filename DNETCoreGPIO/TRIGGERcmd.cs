@@ -16,7 +16,7 @@ using DotNetCoreCoreGPIO;
 namespace DNETCoreGPIO.TRIGGERcmdData
 {
 
-    
+
     public static class TRIGGERcmd
     {
         const string saythisFile = "/tmp/saythis.txt";
@@ -50,6 +50,16 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     Console.WriteLine("Doing Get-Temp with BME280 One result only");
                     DotNetCoreCoreGPIO.BME280Sampler.Get();
                     break;
+                case 16:
+                    SetLEDState(gpios, true);
+                    break;
+                case 17:
+                    SetLEDState(gpios, false);
+                    break;
+                case 18:
+                    Console.WriteLine($"Toggle LED/GPIO{gpios[(int)PinGPIOs.led]}");
+                    SetLEDState(gpios, null);
+                    break;
                 case > 19:
                     int state = index - 20;
                     Console.WriteLine($"Doing MotorControl single pass state:{state}.");
@@ -63,7 +73,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             int numTries = 0;
             int delayMs = 2000;
             //1-Wire:
-            int pin = gpios[(int)PinNames.dht22]; //26;
+            int pin = gpios[(int)PinGPIOs.dht22]; //26;
             Console.WriteLine("Using DH22-1-Wire1");
             bool lastResult = true;
             using (Dht22 dht = new Dht22(pin))
@@ -146,9 +156,9 @@ namespace DNETCoreGPIO.TRIGGERcmdData
         {
             //GPIO Pin numbers:
             //=================
-            var pinFwd = gpios[(int)PinNames.motorfwd];// 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = gpios[(int)PinNames.motorrev]; //27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = gpios[(int)PinNames.motoren]; // 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
+            var pinFwd = gpios[(int)PinGPIOs.motorfwd];// 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = gpios[(int)PinGPIOs.motorrev]; //27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = gpios[(int)PinGPIOs.motoren]; // 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
             Console.WriteLine(state);
@@ -212,14 +222,15 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 File.Delete(saythisFile);
                 Console.WriteLine(saythisFile);
             }
-            string [] lines = txt.Split(',');
+            string[] lines = txt.Split(',');
             File.WriteAllLines(saythisFile, lines);
             return;
         }
 
+
         private static void Relay(bool on, int[] gpios)
         {
-            var pinRelay = gpios[(int)PinNames.relay]; //19;  
+            var pinRelay = gpios[(int)PinGPIOs.relay]; //19;  
             using (GpioController controller = new GpioController())
             {
                 controller.OpenPin(pinRelay, System.Device.Gpio.PinMode.Output);
@@ -232,6 +243,31 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 {
                     Console.WriteLine($"Setting Relay to OFF");
                     controller.Write(pinRelay, System.Device.Gpio.PinValue.Low);
+                }
+            }
+
+        }
+
+        public static bool LEDState = false;
+        private static void SetLEDState(int[] gpios, bool? on)
+        {
+            var pinRLED = gpios[(int)PinGPIOs.led];
+            using (GpioController controller = new GpioController())
+            {
+                controller.OpenPin(pinRLED, System.Device.Gpio.PinMode.Output);
+                if (on == null)
+                    LEDState = !LEDState;
+                else
+                    LEDState = (bool)on;
+                if (LEDState)
+                {
+                    Console.WriteLine($"Setting LED/GPIO {gpios[(int)PinGPIOs.led]} to ON");
+                    controller.Write(pinRLED, System.Device.Gpio.PinValue.High);
+                }
+                else
+                {
+                    Console.WriteLine($"Setting LED/GPIO {gpios[(int)PinGPIOs.led]} to OFF");
+                    controller.Write(pinRLED, System.Device.Gpio.PinValue.Low);
                 }
             }
 

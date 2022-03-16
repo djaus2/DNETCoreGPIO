@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace DotNetCoreCoreGPIO
 {
-    public enum PinNames { led,button, dht22,motoren, motorfwd,motorrev,relay}
+    public enum PinGPIOs { led,button, dht22,motoren, motorfwd,motorrev,relay}
 
     public static class Program
     {
@@ -24,6 +24,7 @@ namespace DotNetCoreCoreGPIO
         {
             gpios = new int[] { 17,4,26,22,27,17,19 };
             int index = -1;
+            TRIGGERcmd.LEDState = false;
             Console.WriteLine("");
             Console.WriteLine(Figgle.FiggleFonts.Standard.Render("DNETCoreGPIO"));
             Console.WriteLine("Starting DJz DNETCoreGPIO App...A DotNet/IO Sampler!");
@@ -156,8 +157,8 @@ namespace DotNetCoreCoreGPIO
         /// </summary>
         static void Blinkled()
         {
-            var pinOut = gpios[(int)PinNames.led]; // 17;// <- Pin 11            Connect to LED Grounded through led and resitor (1kish)
-            var pinIn = gpios[(int)PinNames.button] ;// 4;  // <- Actual Pin 7     Connect to press button, pulled hi
+            var pinOut = gpios[(int)PinGPIOs.led]; // 17;// <- Pin 11            Connect to LED Grounded through led and resitor (1kish)
+            var pinIn = gpios[(int)PinGPIOs.button] ;// 4;  // <- Actual Pin 7     Connect to press button, pulled hi
             var lightTimeInMilliseconds = 1000;
             var dimTimeInMilliseconds = 200;
 
@@ -204,6 +205,7 @@ namespace DotNetCoreCoreGPIO
                 {
                     Console.WriteLine($"Light for {lightTimeInMilliseconds}ms");
                     controller.Write(pinOut, PinValue.High);
+                    TRIGGERcmd.LEDState = true;
                     Thread.Sleep(lightTimeInMilliseconds);
 
                     state = controller.Read(pinIn);
@@ -213,6 +215,7 @@ namespace DotNetCoreCoreGPIO
 
                     Console.WriteLine($"Dim for {dimTimeInMilliseconds}ms");
                     controller.Write(pinOut, PinValue.Low);
+                    TRIGGERcmd.LEDState = false;
                     Thread.Sleep(dimTimeInMilliseconds);
 
                     state = controller.Read(pinIn);
@@ -267,7 +270,7 @@ namespace DotNetCoreCoreGPIO
         {
             int delayMs = 2000;
             //1-Wire:
-            int pin = gpios[(int)PinNames.dht22]; // 26;
+            int pin = gpios[(int)PinGPIOs.dht22]; // 26;
             Console.WriteLine("Using DH22-1-Wire1");
             bool lastResult = true;
             using (Dht22 dht = new Dht22(pin))
@@ -340,7 +343,7 @@ namespace DotNetCoreCoreGPIO
         {
             Console.WriteLine("Connect LED to GND. Connect hi end through resistor to GPIO 17 Pin 11.");
             //var softwarePwmChannelWithPrecisionTimer = new SoftwarePwmChannel(17, frequency: 50, dutyCyclePercentage = 0.5, usePrecisionTimer: true);
-            using (var pwmChannel = new SoftwarePwmChannel(gpios[(int)PinNames.led], 200, 0))
+            using (var pwmChannel = new SoftwarePwmChannel(gpios[(int)PinGPIOs.led], 200, 0))
             {
                 Console.WriteLine("Starting");
                 pwmChannel.Start();
@@ -364,9 +367,9 @@ namespace DotNetCoreCoreGPIO
         {
             //GPIO Pin numbers:
             //=================
-            var pinFwd = gpios[(int)PinNames.motorfwd];// 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
-            var pinRev = gpios[(int)PinNames.motorrev]; //27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
-            var pinEn = gpios[(int)PinNames.motoren]; // 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
+            var pinFwd = gpios[(int)PinGPIOs.motorfwd];// 17; // <- Brd Pin 11            If hi and pinBack is lo motor goes fwd
+            var pinRev = gpios[(int)PinGPIOs.motorrev]; //27; // <- Brd Pin 13             if hi and pinFwd is lo motor goes back (reverse)
+            var pinEn = gpios[(int)PinGPIOs.motoren]; // 22;  // <- Brd Pin 15            Overall enable/disable  hi/lo
 
             //Nb: if pinFwd=pinRev hi or lo then its brake
 
