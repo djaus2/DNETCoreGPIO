@@ -42,7 +42,7 @@ Get single values and write to /tmp/temperature.txt, on RPi
 
 16. Set LED as per 1.
 17. Clear LED ditto
-18. Toggle LED ditt
+18. Toggle LED ditt0
 
 The following control the motor as in 6 but as separate commands.
 
