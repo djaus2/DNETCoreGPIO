@@ -88,6 +88,9 @@ namespace DotNetCoreCoreGPIO
                         case 12:
                         case 14:
                         case 15:
+                        case 16:
+                        case 17:
+                        case 18:
                         case 20:
                         case 21:
                         case 22:
@@ -110,6 +113,7 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("11/12.    Relay On/Off");
                             Console.WriteLine("14.       DHT22-1-Wire: Get single value and write to /tmp/temperature.txt.");
                             Console.WriteLine("15.       BME280: Get single value and write to /tmp/temperature.txt.");
+                            Console.WriteLine("16,17,18. LED Set,Clear,Toggle");
                             Console.WriteLine("20...25.  Doing Motor Control as single commands");
                             Console.WriteLine("20.       Motor Partial off: Set Fwd and Rev to off");
                             Console.WriteLine("21/22.    Motor Forward/Reverse");
@@ -134,6 +138,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("11/12.    Relay On/Off");
                 Console.WriteLine("14.       DHT22-1-Wire: Get single value and write to /tmp/temperature.txt.");
                 Console.WriteLine("15.       BME280: Get single value and write to /tmp/temperature.txt.");
+                Console.WriteLine("16,17,18. LED Set,Clear,Toggle");
                 Console.WriteLine("20...25.  Doing Motor Control as single commands");
                 Console.WriteLine("20.       Motor Partial off: Set Fwd and Rev to off");
                 Console.WriteLine("21/22.    Motor Forward/Reverse");
