@@ -254,6 +254,10 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             var pinRLED = gpios[(int)PinGPIOs.led];
             using (GpioController controller = new GpioController())
             {
+                controller.OpenPin(pinRLED, System.Device.Gpio.PinMode.Input);
+                LEDState = (PinValue.High == controller.Read(pinRLED));
+                controller.ClosePin(pinRLED);
+
                 controller.OpenPin(pinRLED, System.Device.Gpio.PinMode.Output);
                 if (on == null)
                     LEDState = !LEDState;
