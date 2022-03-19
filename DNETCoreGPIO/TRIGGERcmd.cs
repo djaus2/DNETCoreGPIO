@@ -254,7 +254,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
             var pinRLED = gpios[(int)PinGPIOs.led];
             using (GpioController controller = new GpioController())
             {
-                // This doesn't work for Toggle
+                // This doesn't work for Toggle (Read then set state)
                 controller.OpenPin(pinRLED, System.Device.Gpio.PinMode.Input);
                 LEDState = (PinValue.High == controller.Read(pinRLED));
                 controller.ClosePin(pinRLED);
