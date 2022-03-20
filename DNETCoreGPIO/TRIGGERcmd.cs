@@ -20,6 +20,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
     public static class TRIGGERcmd
     {
         const string saythisFile = "/tmp/saythis.txt";
+        public const string ledFile = "/tmp/ledFile.txt";
         const int MaxNumTries = 20; //For DHT22-i-Wire 
 
         /// <summary>
@@ -258,6 +259,15 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 controller.OpenPin(pinRLED, System.Device.Gpio.PinMode.Input);
                 LEDState = (PinValue.High == controller.Read(pinRLED));
                 controller.ClosePin(pinRLED);
+                // Use a flag file instead.
+                if (File.Exists(ledFile))
+                {
+                    // If file found, delete it    
+                    File.Delete(ledFile);
+                    LEDState=true;
+                }
+                else 
+                    LEDState = false;
 
                 controller.OpenPin(pinRLED, System.Device.Gpio.PinMode.Output);
                 if (on == null)
@@ -268,6 +278,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                 {
                     Console.WriteLine($"Setting LED/GPIO {gpios[(int)PinGPIOs.led]} to ON");
                     controller.Write(pinRLED, System.Device.Gpio.PinValue.High);
+                    File.CreateText(ledFile);
                 }
                 else
                 {

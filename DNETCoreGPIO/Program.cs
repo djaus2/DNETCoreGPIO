@@ -12,6 +12,7 @@ using System.Threading;
 using System.Device.Pwm.Drivers;
 using DNETCoreGPIO.TRIGGERcmdData;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DotNetCoreCoreGPIO
 {
@@ -206,20 +207,27 @@ namespace DotNetCoreCoreGPIO
                 start = state;
                 Console.WriteLine("Press and hold button to exit");
                 Console.WriteLine("");
+                // Start with LED off
+                if (File.Exists(TRIGGERcmd.ledFile))
+                    File.Delete(TRIGGERcmd.ledFile);
+                controller.Write(pinOut, PinValue.Low);
                 while (state == start)
                 {
                     Console.WriteLine($"Light for {lightTimeInMilliseconds}ms");
                     controller.Write(pinOut, PinValue.High);
+                    File.CreateText(TRIGGERcmd.ledFile);
                     TRIGGERcmd.LEDState = true;
                     Thread.Sleep(lightTimeInMilliseconds);
 
                     state = controller.Read(pinIn);
                     Console.WriteLine(state);
                     if (state != start)
-                        Console.WriteLine("Keeo holding down til app exits");
+                        Console.WriteLine("Keep holding down til app exits");
 
                     Console.WriteLine($"Dim for {dimTimeInMilliseconds}ms");
                     controller.Write(pinOut, PinValue.Low);
+                    if (File.Exists(TRIGGERcmd.ledFile))
+                        File.Delete(TRIGGERcmd.ledFile);
                     TRIGGERcmd.LEDState = false;
                     Thread.Sleep(dimTimeInMilliseconds);
 
