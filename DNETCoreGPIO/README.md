@@ -11,7 +11,7 @@
 **New Feature:** Can change GPIO mappings as second parameter. eg "17,4,26,22,27,17,19", which is the current settings.  
 _Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively._
 
-**Another:** __Can set,clear,toggle as single commands 16,17 and 18.__
+**Another:** __Can set,clear,toggle LED as single commands with options 16,17 and 18. Nb Uses a temp file to indicate state.__
 
 <hr/>
 

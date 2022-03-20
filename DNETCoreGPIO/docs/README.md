@@ -29,9 +29,12 @@ namespace ConsoleGPIOApp
 }
 ```  
 
-Build and run the app with the required parameter._(See below)_
+NB: if using .NET6.0 Console template you only need a one line file for Program.cs:  
+```DotNetCoreCoreGPIO.Program.Main(args);```
+
+Build and run the app with the required first parameter._(See below)_
   
-***This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)<br>
+***This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)  
 Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.***
 
 **New Feature:** Can change GPIO mappings as second parameter. eg "17,4,26,22,27,17,19", which is the current settings.  
