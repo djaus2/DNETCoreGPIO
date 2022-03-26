@@ -1,7 +1,7 @@
 # DNETCoreGPIO
 
-A .NET Core app to run on the RPi. Works with both Raspian and Win10 IoT-Core unchanged.
-Exemplifies System.Devices.GPIO and Iot.Device.Bindings Nuget packages. Provided as Visual Studio 2022 project.
+A .NET library then can be used directly with a .NET console app app to run on the RPi. Works with both Raspian (Debian).  
+Uses System.Devices.GPIO and Iot.Device.Bindings Nuget packages.
 
 ## Usage
 
@@ -9,8 +9,8 @@ Create a .NET Console app:
 Run ```dotnet new console```  
 
 Add the library as a Nuget package  
-Run ``` dotnet add package DNETCoreGPIO --version 1.0.x```  
-NB: Use the current version, in place of 1.0.x,check at https://www.nuget.org/packages/DNETCoreGPIO/  
+Run ``` dotnet add package DNETCoreGPIO --version 1.y.x```  
+NB: Use the current version, in place of 1.y.x,check at https://www.nuget.org/packages/DNETCoreGPIO/  
  _Can use \* to get latest._ 
 
 Change the 7th line in Program.cs as below:
@@ -34,8 +34,7 @@ NB: if using .NET6.0 Console template you only need a one line file for Program.
 
 Build and run the app with the required first parameter._(See below)_
   
-***This is based upon the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)  
-Whereas the samples therein (from which this is taken, and extended) use library sources in that repository, this uses the associated Nuget packages.***
+***Based upon samples in the GitHUb Repository: [dotnet/iot](https://github.com/dotnet/iot)  
 
 **New Feature:** Can change GPIO mappings as second parameter. eg "17,4,26,22,27,17,19", which is the current settings.  
 _Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively._
@@ -75,6 +74,8 @@ The following control the motor as in 6 but as separate commands.
 23. Motor Enable
 24. Motor Disable
 25. Motor Off (Fwd=Rev=En=off)
+
+PS: Can toggle a soleniod with the LED.
 
 
 # Run
