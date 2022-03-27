@@ -29,6 +29,7 @@ namespace ConsoleDNETCoreGPIO
             }
 
             var Args = argsList.ToArray<string>();
+            DotNetCoreCoreGPIO.Program.Main(Args);
         }
     }
 }
