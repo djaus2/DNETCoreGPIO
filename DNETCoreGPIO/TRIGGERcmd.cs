@@ -28,7 +28,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
         /// DHT22-i-Wire can get invalids so do multiple tries.
         /// </summary>
         /// <param name="index"></param>
-        public static void Trigger(int index, int[] gpios)
+        public static void Trigger(int index, int[] gpios, int period, string deviceConnectionString)
         {
 
             switch (index)
@@ -61,10 +61,23 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     Console.WriteLine($"Toggle LED/GPIO{gpios[(int)PinGPIOs.led]}");
                     SetLEDState(gpios, null);
                     break;
-                case > 19:
+                case 20:
+                case 21:
+                case 22:
+                case 23:
+                case 24:
+                case 25:
                     int state = index - 20;
                     Console.WriteLine($"Doing MotorControl single pass state:{state}.");
                     MotorControl(state, gpios);
+                    break;
+                case 30:
+                    Console.WriteLine("Doing continuously get-Temp with DHT22-i-Wire and send to IoT Hub 2Do");
+                    //GetTempDHTxx1Wire4IoTHub(MaxNumTries, gpios);
+                    break;
+                case 31:
+                    Console.WriteLine("Doing continuously get-Temp with BME280 and send to IoT Hub");
+                    DotNetCoreCoreGPIO.BME280Sampler.Get4IOTHub(period, deviceConnectionString).GetAwaiter();
                     break;
             }
         }

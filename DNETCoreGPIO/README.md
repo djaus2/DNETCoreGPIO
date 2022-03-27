@@ -13,6 +13,8 @@ _Which map to **led,button,dht22,motoren, motorfwd,motorrev,relay** respectively
 
 **Another:** __Can set,clear,toggle LED as single commands with options 16,17 and 18. Nb Uses a temp file to indicate state.__
 
+**More:** Options 30 DHT22 1-Wire  (2Do) and 31 BME280 Continuously send telemetry to an IoT Hub.__
+
 <hr/>
 
 A .NET Core app to run on the RPi. Works with both Raspian and Win10 IoT-Core unchanged.
@@ -52,6 +54,9 @@ The following control the motor as in 6 but as separate commands.
 23. Motor Enable
 24. Motor Disable
 25. Motor Off (Fwd=Rev=En=off)
+
+30. Contnuouosly send Teelemetry from DHT22 1-Wire to Azure IoT Hub
+31. Contnuouosly send Teelemetry from BME280 to Azure IoT Hub
 
 
 **To run**  

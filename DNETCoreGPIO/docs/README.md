@@ -62,9 +62,11 @@ See TRIGGERcmd.GetTempDHTxx1Wire()
 15. Temperature Pressure and Humidity with BME280.  
 Get single values and write to /tmp/temperature.txt, on RPi
 
-16. Set LED as per 1.
-17. Clear LED ditto
+
+16. Set LED as per 1.  
+17. Clear LED ditto  
 18. Toggle LED ditto
+
 
 The following control the motor as in 6 but as separate commands.
 
@@ -74,6 +76,10 @@ The following control the motor as in 6 but as separate commands.
 23. Motor Enable
 24. Motor Disable
 25. Motor Off (Fwd=Rev=En=off)
+
+The following run continously:  
+30. (2Do) Start sending DHT22 1-Wire Telemetry to Azure IoT Hub. Requires a period (default 10 sec) between readings and DeviceConnectionString.  
+31. Start sending BME280 Telemetry to Azure IoT Hub. Requires a period (default 10 sec) between readings and DeviceConnectionString.
 
 PS: Can toggle a soleniod with the LED.
 
@@ -110,6 +116,22 @@ See circuit diagram in Circuits folder, right part. <br>Pins (L293D pins in brac
 - See circuit diagram **rpi-bmp280_i2c.png** for 4 pin connections.
 - If unit is more than 4 pins see **BME280Sampler.Get()** for extra pins.
 - Also see there wrt ***enabling I2C on RPi*** and for checking.
+## Azure IOT Hub
+- Can periodicly send sensor readings to an Azure IoT Hub
+- Option 30. DHT22 1-Wire (2Do)
+- Option 31. BME280
+- Both connected as per DHT22 and BME280 above.
+- Need 2 additional parameters:
+  - Period: Time in seconds beteween readings, eg 10
+  - DeviceConnectionString
+- Nb: Need to provide 4 parameters in these cases:
+  - [30|31] gpioString period deviceconnectionstring
+	- gpioString and period can both be a dot
+    - In these cases the defaults are used:
+      - gpioString default is "17,4,26,22,27,17,19"
+        - _Hint:_ You can replace individual gpios in the string with a dot and the default is used for that.
+      - period: default is 10
+  
 
   
 More on [My Blog](https://davidjones.sportronics.com.au)

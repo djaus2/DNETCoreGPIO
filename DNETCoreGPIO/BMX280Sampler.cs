@@ -8,9 +8,11 @@
 using System;
 using System.Device.I2c;
 using System.Threading;
+using System.Threading.Tasks;
 using DNETCoreGPIO.TRIGGERcmdData;
 using Iot.Device.Bmxx80;
 using Iot.Device.Common;
+using SendTelemetry;
 using UnitsNet;
 //using Iot.Units;
 
@@ -25,12 +27,12 @@ namespace DotNetCoreCoreGPIO
         /// Entry point for example program
         /// </summary>
         /// <param name="args">Command line arguments</param>
-        public static void Get()
+        public static dynamic Get()
         {
             Console.WriteLine("Using BME280!");
             Console.WriteLine(Bme280.DefaultI2cAddress);
             string result = "";
-
+            dynamic telemetryDataPoint = null;
             try
             {
                 // set this to the current sea level pressure in the area for correct altitude readings
@@ -73,6 +75,14 @@ namespace DotNetCoreCoreGPIO
                 result += $"Altitude: {altValue.Meters:0.##}m ,";
                 result += $"Relative humidity: {readResult.Humidity?.Percent:0.#}% .";
 
+                telemetryDataPoint = new
+                {
+                    temperature = readResult.Temperature,
+                    pressure = readResult.Pressure,
+                    humidity = readResult.Humidity
+
+                };
+
                 /*if (i2cBmp280 != null)
                 {
                     using (i2cBmp280)
@@ -109,10 +119,20 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Failed: Probably no hw.");
                 result = $"Failed: Probably no hw.{ex.Message}";
+                telemetryDataPoint = null;
             }
             TRIGGERcmd.WriteT2S(result);
+            return telemetryDataPoint;
         }
 
+        internal static async Task Get4IOTHub(int period, string deviceConnectionString)
+        {
+            var telemetryDataPoint = Get();
+            if (telemetryDataPoint != null)
+            {
+                await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, deviceConnectionString);
+            }
+        }
     }
 
 }

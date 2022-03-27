@@ -21,9 +21,9 @@ namespace DotNetCoreCoreGPIO
     public static class Program
     {
         private static int[] gpios;
-        public static void Main(string[] args)
+        public static void Main(string[] args, int period = 10, string deviceConnectionString = "" )
         {
-            gpios = new int[] { 17,4,26,22,27,17,19 };
+            gpios = new int[] { 17,4,26,22,27,17,19 };      
             int index = -1;
             TRIGGERcmd.LEDState = false;
             Console.WriteLine("");
@@ -38,27 +38,53 @@ namespace DotNetCoreCoreGPIO
             {
                 if (args.Length > 1)
                 {
-                    //Expect "17,4,26,22,27,17,19"
-                    string pinsStr = args[1];
-                    if (!string.IsNullOrEmpty(pinsStr))
+                    // Can send . as place holder for gpio, which means use default
+                    if (args[1] != ".")
                     {
-                        string[] gpioStrArr = pinsStr.Split(new char[] { ',' });
-                        int i = 0;
-                        foreach (string gpioStr in gpioStrArr)
+                        //Expect "17,4,26,22,27,17,19"
+                        string pinsStr = args[1];
+                        if (!string.IsNullOrEmpty(pinsStr))
                         {
-                            if (! string.IsNullOrEmpty(gpioStr))
+                            string[] gpioStrArr = pinsStr.Split(new char[] { ',' });
+                            int i = 0;
+                            foreach (string gpioStr in gpioStrArr)
                             {
-                                if (int.TryParse(gpioStr.Trim(), out int gpio))
+                                if (!string.IsNullOrEmpty(gpioStr))
                                 {
-                                    gpios[i] = gpio;
+                                    if (int.TryParse(gpioStr.Trim(), out int gpio))
+                                    {
+                                        gpios[i] = gpio;
+                                    }
                                 }
+                                i++;
                             }
-                            i++;
                         }
                     }
                 }  
+                if (args.Length> 2)
+                {
+                    if (int.TryParse(args[2], out int iperiod))
+                    {
+                        period = iperiod;
+                    }
+                }
+                if (args.Length > 3)
+                {
+                    if (!string.IsNullOrEmpty(args[3].Trim()))
+                    {
+                        deviceConnectionString = args[3].Trim();
+                    }
+                }
                 if (int.TryParse(args[0], out index))
                 {
+                    if ((index ==30) || (index==31))
+                    {
+                        if (string.IsNullOrEmpty(deviceConnectionString))
+                        {
+                            Console.WriteLine("Options 30 and 31 require a DeviceConnevctionString");
+                            index = 0;
+                        }
+                    }
                     switch (index)
                     {
                         case 1:
@@ -98,8 +124,11 @@ namespace DotNetCoreCoreGPIO
                         case 23:
                         case 24:
                         case 25:
-                            TRIGGERcmd.Trigger(index, gpios);
+                        case 30:
+                        case 31:
+                            TRIGGERcmd.Trigger(index, gpios, period, deviceConnectionString);
                             break;
+                        case 0:
                         default:
                             Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                             Console.WriteLine("========================================");
@@ -120,6 +149,8 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("21/22.    Motor Forward/Reverse");
                             Console.WriteLine("23/24.    Motor Enable/Disable)");
                             Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
+                            Console.WriteLine("30.       DHT22-1-Wire: Contnuously get single value and send to Azure IoT Hub.");
+                            Console.WriteLine("31.       BME280: Contnuously get single value and wsend to Azure IoT Hub.");
                             break;
                     }
                 }
@@ -145,6 +176,8 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("21/22.    Motor Forward/Reverse");
                 Console.WriteLine("23/24.    Motor Enable/Disable)");
                 Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
+                Console.WriteLine("30.       DHT22-1-Wire: Contnuously get single value and send to Azure IoT Hub.");
+                Console.WriteLine("31.       BME280: Contnuously get single value and wsend to Azure IoT Hub.");
             }
 
 
