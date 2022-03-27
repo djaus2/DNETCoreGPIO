@@ -96,7 +96,7 @@ namespace DotNetCoreCoreGPIO
                             do
                             {
                                 BME280Sampler.Get();
-                                Thread.Sleep(5000);
+                                Thread.Sleep(period);
                             } while (true);
                             break;
                         case 4:
