@@ -92,12 +92,12 @@ namespace DotNetCoreCoreGPIO
                             Blinkled();
                             break;
                         case 2:
-                            Console.WriteLine("Doing Get-Temp with BMP180");
-                            //BMP180Sampler.Run();
-                            break;
-                        case 3:
-                            Console.WriteLine("Doing Get-Temp with DHTxx");
-                            GetTempDHTxx();
+                            Console.WriteLine("Doing Get-Temp with BME280");
+                            do
+                            {
+                                BME280Sampler.Get();
+                                Thread.Sleep(5000);
+                            } while (true);
                             break;
                         case 4:
                             Console.WriteLine("Doing Get-Temp with DHT22-i-Wire");
@@ -133,8 +133,7 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                             Console.WriteLine("========================================");
                             Console.WriteLine("1. Doing Blink-LED");
-                            Console.WriteLine("2. Doing Get-Temp with BMP180            ... Not tested yet.");
-                            Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
+                            Console.WriteLine("2. Doing Get-Temp with BME280");
                             Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire");
                             Console.WriteLine("5. Doing LED PWM");
                             Console.WriteLine("6. Doing Motor H-Bridge style with L293D.");
@@ -149,7 +148,7 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("21/22.    Motor Forward/Reverse");
                             Console.WriteLine("23/24.    Motor Enable/Disable)");
                             Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
-                            Console.WriteLine("30.       DHT22-1-Wire: Contnuously get single value and send to Azure IoT Hub.");
+                            Console.WriteLine("30.       DHT22-1-Wire: (2Do) Contnuously get single value and send to Azure IoT Hub.");
                             Console.WriteLine("31.       BME280: Contnuously get single value and wsend to Azure IoT Hub.");
                             break;
                     }
@@ -157,11 +156,11 @@ namespace DotNetCoreCoreGPIO
             }
             else
             {
+                Console.WriteLine("Default);
                 Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Doing Blink-LED");
-                Console.WriteLine("2. Doing Get-Temp with BMP180            ... Not tested yet.");
-                Console.WriteLine("3. Doing Get-Temp with DHTxx             ... Not tested yet");
+                Console.WriteLine("2. Doing Get-Temp with BMER280 ");
                 Console.WriteLine("4. Doing Get-Temp with DHT22-i-Wire");
                 Console.WriteLine("5. Doing LED PWM");
                 Console.WriteLine("6. Doing Motor H-Bridge style with L293D.");
@@ -176,7 +175,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("21/22.    Motor Forward/Reverse");
                 Console.WriteLine("23/24.    Motor Enable/Disable)");
                 Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
-                Console.WriteLine("30.       DHT22-1-Wire: Contnuously get single value and send to Azure IoT Hub.");
+                Console.WriteLine("30.       DHT22-1-Wire: (2Do)Continuously get single value and send to Azure IoT Hub.");
                 Console.WriteLine("31.       BME280: Contnuously get single value and wsend to Azure IoT Hub.");
             }
 
