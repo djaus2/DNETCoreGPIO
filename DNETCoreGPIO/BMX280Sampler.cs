@@ -46,6 +46,7 @@ namespace DotNetCoreCoreGPIO
                 // A check: i2cdetect -y 1
                 // Should show 77
                 // Ref: https://www.electroniclinic.com/i2c-serial-communication-bus-in-raspberry-pi/#:~:text=I2C%20bus%20in%20Raspberry%20pi%3A%20I2C%20bus%20represents,unlike%20the%20SPI%20bus%2C%20only%20uses%20two%20wires.
+                // And: https://pimylifeup.com/raspberry-pi-i2c/?msclkid=3a043c5cadbc11ecb86481579831ab91
                 I2cConnectionSettings i2cSettings = new(busId, Bme280.DefaultI2cAddress);
                 using I2cDevice i2cDevice = I2cDevice.Create(i2cSettings);
                 using Bme280 bme80 = new Bme280(i2cDevice)
