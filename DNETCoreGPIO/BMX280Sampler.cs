@@ -78,9 +78,9 @@ namespace DotNetCoreCoreGPIO
 
                 telemetryDataPoint = new
                 {
-                    temperature = readResult.Temperature,
-                    pressure = readResult.Pressure,
-                    humidity = readResult.Humidity
+                    temperature = (double)readResult.Temperature?.DegreesCelsius,
+                    pressure = (double)readResult.Pressure?.Hectopascals,
+                    humidity = (double)readResult.Humidity?.Percent
 
                 };
 
