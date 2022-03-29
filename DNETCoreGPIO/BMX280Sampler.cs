@@ -84,36 +84,7 @@ namespace DotNetCoreCoreGPIO
 
                 };
 
-                /*if (i2cBmp280 != null)
-                {
-                    using (i2cBmp280)
-                    {
-                        // set samplings
-                        i2cBmp280.SetSampling(Sampling.Standard);
 
-                        // read values
-                        UnitsNet.Temperature tempValue = i2cBmp280.ReadTemperature();
-                        Console.WriteLine($"Temperature {tempValue.DegreesCelsius} \u00B0C");
-                        var preValue = i2cBmp280.ReadPressure();
-                        Console.WriteLine($"Pressure {preValue.Hectopascals} hPa");
-                        double altValue = i2cBmp280.ReadAltitude().Meters;
-                        Console.WriteLine($"Altitude {altValue:0.##} m");
-                        Thread.Sleep(1000);
-
-                        // set higher sampling
-                        i2cBmp280.SetSampling(Sampling.UltraLowPower);
-
-                        // read values
-                        tempValue = i2cBmp280.ReadTemperature();
-                        Console.WriteLine($"Temperature {tempValue.DegreesCelsius} \u00B0C");
-                        preValue = i2cBmp280.ReadPressure();
-                        Console.WriteLine($"Pressure {preValue.Hectopascals} hPa");
-                        altValue = i2cBmp280.ReadAltitude().Meters;
-                        Console.WriteLine($"Altitude {altValue:0.##} m");
-                    }
-                } else {
-                    Console.WriteLine($"Failed: No DMP180");
-                }*/
             }
             catch (Exception ex)
             {
@@ -126,12 +97,20 @@ namespace DotNetCoreCoreGPIO
             return telemetryDataPoint;
         }
 
-        internal static async Task Get4IOTHub(int period, string deviceConnectionString)
+        internal static async Task Get4IOTHub(int period, string deviceConnectionString, bool _keepReading)
         {
-            var telemetryDataPoint = Get();
-            if (telemetryDataPoint != null)
-            {
-                await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, deviceConnectionString);
+            bool keepReading=true;
+            while (keepReading)
+            { 
+                var telemetryDataPoint = Get();
+                if (telemetryDataPoint != null)
+                {
+                    await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, deviceConnectionString);
+                }
+                keepReading = _keepReading;
+                if (keepReading)
+                    Thread.Sleep(period*1000);
+
             }
         }
     }

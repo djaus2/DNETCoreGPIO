@@ -13,6 +13,7 @@ using System.Device.Pwm.Drivers;
 using DNETCoreGPIO.TRIGGERcmdData;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace DotNetCoreCoreGPIO
 {
@@ -21,7 +22,7 @@ namespace DotNetCoreCoreGPIO
     public static class Program
     {
         private static int[] gpios;
-        public static void Main(string[] args, int period = 10, string deviceConnectionString = "" )
+        public static async Task Main(string[] args, int period = 10, string deviceConnectionString = "" )
         {
             gpios = new int[] { 17,4,26,22,27,17,19 };      
             int index = -1;
@@ -126,7 +127,7 @@ namespace DotNetCoreCoreGPIO
                         case 25:
                         case 30:
                         case 31:
-                            TRIGGERcmd.Trigger(index, gpios, period, deviceConnectionString);
+                            await TRIGGERcmd.Trigger(index, gpios, period, deviceConnectionString);
                             break;
                         case 0:
                         default:
@@ -148,15 +149,15 @@ namespace DotNetCoreCoreGPIO
                             Console.WriteLine("21/22.    Motor Forward/Reverse");
                             Console.WriteLine("23/24.    Motor Enable/Disable)");
                             Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
-                            Console.WriteLine("30.       DHT22-1-Wire: (2Do) Contnuously get single value and send to Azure IoT Hub.");
-                            Console.WriteLine("31.       BME280: Contnuously get single value and wsend to Azure IoT Hub.");
+                            Console.WriteLine("30.       DHT22-1-Wire: (2Do) Continuously get single value and send to Azure IoT Hub.");
+                            Console.WriteLine("31.       BME280: Continuously get single value and wsend to Azure IoT Hub.");
                             break;
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Default);
+                Console.WriteLine("Default");
                 Console.WriteLine("Command line is DNETCoreGPIO n where n is:");
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Doing Blink-LED");
@@ -176,7 +177,7 @@ namespace DotNetCoreCoreGPIO
                 Console.WriteLine("23/24.    Motor Enable/Disable)");
                 Console.WriteLine("25.       Motor Off (Fwd=Rev=En=off)");
                 Console.WriteLine("30.       DHT22-1-Wire: (2Do)Continuously get single value and send to Azure IoT Hub.");
-                Console.WriteLine("31.       BME280: Contnuously get single value and wsend to Azure IoT Hub.");
+                Console.WriteLine("31.       BME280: Continuously get single value and wsend to Azure IoT Hub.");
             }
 
 

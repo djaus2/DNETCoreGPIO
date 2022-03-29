@@ -12,6 +12,7 @@ using System.Threading;
 using System.Device.Pwm.Drivers;
 using System.IO;
 using DotNetCoreCoreGPIO;
+using System.Threading.Tasks;
 
 namespace DNETCoreGPIO.TRIGGERcmdData
 {
@@ -28,7 +29,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
         /// DHT22-i-Wire can get invalids so do multiple tries.
         /// </summary>
         /// <param name="index"></param>
-        public static void Trigger(int index, int[] gpios, int period, string deviceConnectionString)
+        public static async Task Trigger(int index, int[] gpios, int period, string deviceConnectionString)
         {
 
             switch (index)
@@ -77,7 +78,7 @@ namespace DNETCoreGPIO.TRIGGERcmdData
                     break;
                 case 31:
                     Console.WriteLine("Doing continuously get-Temp with BME280 and send to IoT Hub");
-                    DotNetCoreCoreGPIO.BME280Sampler.Get4IOTHub(period, deviceConnectionString).GetAwaiter();
+                    await DotNetCoreCoreGPIO.BME280Sampler.Get4IOTHub(period, deviceConnectionString, true);
                     break;
             }
         }
