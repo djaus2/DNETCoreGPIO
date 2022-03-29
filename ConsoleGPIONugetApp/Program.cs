@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ConsoleGPIOApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
 
             int delay = 10;
@@ -31,7 +32,7 @@ namespace ConsoleGPIOApp
 
             var Args = argsList.ToArray<string>();
 
-            DotNetCoreCoreGPIO.Program.Main(Args);
+            await DotNetCoreCoreGPIO.Program.Main(Args);
         }
     }
 }
