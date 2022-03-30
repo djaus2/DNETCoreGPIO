@@ -17,13 +17,15 @@ Change the 7th line in Program.cs as below:
 
 ```csharp
 
+using System.Threading.Tasks;
+
 namespace ConsoleGPIOApp
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static aync Task Main(string[] args)
 		{
-			DotNetCoreCoreGPIO.Program.Main(args);
+			await DotNetCoreCoreGPIO.Program.Main(args);
 		}
 	}
 }
