@@ -53,6 +53,10 @@ The following control the motor as in 6 but as separate commands.
 24. Motor Disable
 25. Motor Off (Fwd=Rev=En=off)
 
+The following run continously:
+ 30. (2Do) Start sending DHT22 1-Wire Telemetry to Azure IoT Hub. Requires a period (default 10 sec) between readings and DeviceConnectionString.
+ 31. Start sending BME280 Telemetry to Azure IoT Hub. Requires a period (default 10 sec) between readings and DeviceConnectionString
+
 
 **To run**  
 - If publishing from desktop to RPI, from within the deployed folder: ```./DNETCoreGPIO  n``` on Raspian or ```.\DNETCoreGPIO  n``` in a PowerShell windows on IoT-Core,  where **n is 1,2 ... 6** as above.
