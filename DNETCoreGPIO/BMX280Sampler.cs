@@ -27,7 +27,7 @@ namespace DotNetCoreCoreGPIO
         /// Entry point for example program
         /// </summary>
         /// <param name="args">Command line arguments</param>
-        public static async Task<dynamic> Get()
+        public static dynamic Get()
         {
             Console.WriteLine("Using BME280!");
             Console.WriteLine(Bme280.DefaultI2cAddress);
